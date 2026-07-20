@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Empreendimento>
+  <Nome>Edifício Solar das Flores</Nome>
+  <Descricao>Maravilhoso empreendimento de alto padrão localizado na região mais valorizada da cidade, com área de lazer completa, piscina e segurança 24h.</Descricao>
+  <Tipo>Vertical</Tipo>
+  <ValorInicial>750000.00</ValorInicial>
+  <ValorFinal>1200000.00</ValorFinal>
+  <PrevisaoEntrega>Dezembro 2027</PrevisaoEntrega>
+  <QtdeTorre>2</QtdeTorre>
+  <QtdeQuadra>0</QtdeQuadra>
+  <Status>Liberado</Status>
+  <Logomarca>https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400</Logomarca>
+</Empreendimento>

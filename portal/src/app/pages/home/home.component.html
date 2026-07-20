@@ -1,0 +1,80 @@
+<main class="hero-container">
+  <div class="hero-content">
+    <h1 class="hero-title">O que você procura <span style="color: var(--accent-color); font-weight: 800; font-style: italic;">hoje?</span></h1>
+    
+    <form class="search-box" (submit)="submitSearch($event)">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" [value]="searchQuery()" (input)="onSearchInput($event)" (blur)="hideDropdown()" placeholder="Descreva o seu imóvel ideal..." aria-label="Buscar imóvel" />
+        <button type="submit" class="voice-search-btn" aria-label="Pesquisa Inteligente" style="background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+          <span style="font-weight: 800; font-family: 'Inter', sans-serif; font-size: 14px; letter-spacing: -0.5px;">UU</span>
+        </button>
+      </div>
+      
+      <!-- Autocomplete Dropdown List -->
+      @if (showDropdown()) {
+        <div class="autocomplete-dropdown">
+          @for (item of autocompleteResults(); track item.id + '-' + item.tipo) {
+            <button type="button" class="autocomplete-item" (mousedown)="selectSuggestion(item)">
+              <span class="suggestion-text">{{ item.texto }}</span>
+              <span class="suggestion-type-badge" [class]="item.tipo.toLowerCase()">{{ item.tipo }}</span>
+            </button>
+          }
+        </div>
+      }
+    </form>
+    
+    <div class="suggestions-section">
+      <h2 class="suggestions-title">EXPERIMENTE PERGUNTAR</h2>
+      <div class="suggestions-grid">
+        <button type="button" class="suggestion-chip" (click)="selectSuggestionText('Apartamentos para investir')">
+          <span class="chip-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+          </span>
+          <span class="chip-text">Apartamentos para investir</span>
+          <span class="chip-arrow">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </span>
+        </button>
+        
+        <button type="button" class="suggestion-chip" (click)="selectSuggestionText('3 suítes no Jardim das Américas')">
+          <span class="chip-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+          </span>
+          <span class="chip-text">3 suítes no Jardim das Américas</span>
+          <span class="chip-arrow">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </span>
+        </button>
+        
+        <button type="button" class="suggestion-chip" (click)="selectSuggestionText('Lançamentos até R$ 1 milhão')">
+          <span class="chip-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </span>
+          <span class="chip-text">Lançamentos até R$ 1 milhão</span>
+          <span class="chip-arrow">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </span>
+        </button>
+        
+        <button type="button" class="suggestion-chip" (click)="selectSuggestionText('Compare Plaenge e Ginco')">
+          <span class="chip-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </span>
+          <span class="chip-text">Compare Plaenge e Ginco</span>
+          <span class="chip-arrow">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Skyline background illustration -->
+  <div class="skyline-container">
+    <svg class="skyline-svg" viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 0 200 L 0 180 L 30 180 L 30 140 L 70 140 L 70 160 L 120 160 L 120 120 L 160 120 L 160 170 L 210 170 L 210 130 L 240 130 L 240 150 L 300 150 L 300 110 L 350 110 L 350 165 L 390 165 L 390 140 L 440 140 L 440 160 L 480 160 L 480 90 L 530 90 L 530 175 L 590 175 L 590 120 L 640 120 L 640 150 L 690 150 L 690 100 L 730 100 L 730 165 L 790 165 L 790 130 L 830 130 L 830 150 L 880 150 L 880 80 L 940 80 L 940 170 L 1000 170 L 1000 120 L 1050 120 L 1050 145 L 1100 145 L 1100 110 L 1150 110 L 1150 160 L 1200 160 L 1200 135 L 1250 135 L 1250 155 L 1310 155 L 1310 95 L 1370 95 L 1370 180 L 1440 180 L 1440 200 Z" fill="#e2e8f0" opacity="0.3" />
+      <path d="M 0 200 L 0 190 L 50 190 L 50 160 L 90 160 L 90 175 L 150 175 L 150 140 L 190 140 L 190 180 L 250 180 L 250 150 L 290 150 L 290 165 L 340 165 L 340 130 L 380 130 L 380 175 L 430 175 L 430 155 L 470 155 L 470 170 L 520 170 L 520 110 L 570 110 L 570 180 L 630 180 L 630 140 L 680 140 L 680 160 L 720 160 L 720 120 L 760 120 L 760 175 L 820 175 L 820 145 L 860 145 L 860 160 L 910 160 L 910 100 L 970 100 L 970 175 L 1030 175 L 1030 135 L 1080 135 L 1080 155 L 1130 155 L 1130 120 L 1180 120 L 1180 170 L 1230 170 L 1230 150 L 1270 150 L 1270 165 L 1330 165 L 1330 115 L 1390 115 L 1390 185 L 1440 185 L 1440 200 Z" fill="#cbd5e1" opacity="0.4" stroke="#94a3b8" stroke-width="0.5" />
+    </svg>
+  </div>
+</main>

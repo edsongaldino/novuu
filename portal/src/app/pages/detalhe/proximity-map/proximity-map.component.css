@@ -1,0 +1,246 @@
+/* ======================================================
+   ProximityMapComponent Styles
+   ====================================================== */
+
+.proximity-map-section {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Header */
+.pm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.pm-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0 0 4px 0;
+  border-left: 4px solid var(--secondary-color);
+  padding-left: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pm-address {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin: 0 0 0 16px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pm-open-maps-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.pm-open-maps-btn:hover {
+  background-color: #134074;
+  transform: translateY(-1px);
+}
+
+/* Radius selector */
+.pm-radius-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.pm-radius-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pm-radius-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.pm-radius-tab {
+  padding: 5px 16px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border-color);
+  background: white;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pm-radius-tab:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.pm-radius-tab.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+/* Map */
+.pm-map-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-md);
+  background: #f1f5f9;
+  height: 400px;
+}
+
+.pm-map-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.pm-map-loading,
+.pm-map-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(241, 245, 249, 0.95);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.pm-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: pm-spin 0.8s linear infinite;
+}
+
+@keyframes pm-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Chips */
+.pm-chips-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.pm-chips-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 10px 0;
+}
+
+.pm-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border-color);
+  background: white;
+  color: var(--text-secondary);
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.pm-chip:hover {
+  border-color: var(--chip-color);
+  color: var(--chip-color);
+  background: var(--chip-bg);
+}
+
+.pm-chip.pm-chip-active {
+  background: var(--chip-bg);
+  border-color: var(--chip-color);
+  color: var(--chip-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--chip-color) 15%, transparent);
+}
+
+.pm-chip-emoji {
+  font-size: 1em;
+}
+
+.pm-chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 100px;
+  background: var(--chip-color);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pm-chip-loader {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top-color: var(--chip-color);
+  border-radius: 50%;
+  animation: pm-spin 0.7s linear infinite;
+}
+
+/* Results summary */
+.pm-results-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.pm-results-summary strong {
+  color: var(--primary-color);
+}

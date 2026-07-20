@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: novuu_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "259864"
+      POSTGRES_DB: lancamentos
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    image: mcr.microsoft.com/dotnet/sdk:9.0
+    container_name: novuu_api
+    working_dir: /app/src/LancamentosOnline.WebApi
+    volumes:
+      - ./api:/app
+    ports:
+      - "5135:5135"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5135
+      - ConnectionStrings__DefaultConnection=Host=db;Database=lancamentos;Username=postgres;Password=259864
+    command: dotnet run
+    depends_on:
+      - db
+
+  portal:
+    image: node:20
+    container_name: novuu_portal
+    working_dir: /app
+    volumes:
+      - ./portal:/app
+    ports:
+      - "4200:4200"
+    command: sh -c "npm install && npm start -- --host 0.0.0.0 --port 4200 --poll 2000"
+    depends_on:
+      - api
+
+  painel:
+    image: node:20
+    container_name: novuu_painel
+    working_dir: /app
+    volumes:
+      - ./painel:/app
+    ports:
+      - "4201:4201"
+    command: sh -c "npm install && npm start -- --host 0.0.0.0 --port 4201 --poll 2000"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

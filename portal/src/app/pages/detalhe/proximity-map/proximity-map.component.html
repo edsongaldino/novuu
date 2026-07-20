@@ -1,0 +1,109 @@
+<section class="proximity-map-section">
+
+  <!-- Header -->
+  <div class="pm-header">
+    <div>
+      <h2 class="pm-title">
+        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" style="color:var(--secondary-color)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        Localização e Proximidade
+      </h2>
+      <p class="pm-address">{{ address }}</p>
+    </div>
+    <button class="pm-open-maps-btn" (click)="openInGoogleMaps()">
+      <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+      Abrir no Google Maps
+    </button>
+  </div>
+
+  <!-- Radius selector -->
+  <div class="pm-radius-row">
+    <span class="pm-radius-label">Raio de busca:</span>
+    <div class="pm-radius-tabs">
+      <button
+        [class.active]="radius() === 500"
+        (click)="setRadius(500)"
+        class="pm-radius-tab">
+        500m
+      </button>
+      <button
+        [class.active]="radius() === 1000"
+        (click)="setRadius(1000)"
+        class="pm-radius-tab">
+        1 km
+      </button>
+      <button
+        [class.active]="radius() === 2000"
+        (click)="setRadius(2000)"
+        class="pm-radius-tab">
+        2 km
+      </button>
+      <button
+        [class.active]="radius() === 5000"
+        (click)="setRadius(5000)"
+        class="pm-radius-tab">
+        5 km
+      </button>
+      <button
+        [class.active]="radius() === 10000"
+        (click)="setRadius(10000)"
+        class="pm-radius-tab">
+        10 km
+      </button>
+    </div>
+  </div>
+
+  <!-- Map Container -->
+  <div class="pm-map-wrapper">
+    <div #mapContainer class="pm-map-canvas"></div>
+
+    @if (!mapLoaded() && !mapError()) {
+      <div class="pm-map-loading">
+        <div class="pm-spinner"></div>
+        <span>Carregando mapa...</span>
+      </div>
+    }
+
+    @if (mapError()) {
+      <div class="pm-map-error">
+        <svg viewBox="0 0 24 24" width="32" height="32" stroke="#ef4444" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span>{{ mapError() }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Category chips -->
+  <div class="pm-chips-section">
+    <p class="pm-chips-label">Mostrar nas proximidades:</p>
+    <div class="pm-chips-grid">
+      @for (cat of categories; track cat.id) {
+        <button
+          class="pm-chip"
+          [class.pm-chip-active]="isCategoryActive(cat.id)"
+          [class.pm-chip-loading]="isCategoryLoading(cat.id)"
+          [style.--chip-color]="cat.color"
+          [style.--chip-bg]="cat.bgColor"
+          (click)="toggleCategory(cat.id)">
+
+          <span class="pm-chip-emoji">{{ cat.emoji }}</span>
+          <span class="pm-chip-label">{{ cat.label }}</span>
+
+          @if (isCategoryLoading(cat.id)) {
+            <span class="pm-chip-loader"></span>
+          } @else if (isCategoryActive(cat.id) && (placesCountByCategory()[cat.id] || 0) > 0) {
+            <span class="pm-chip-count">{{ placesCountByCategory()[cat.id] }}</span>
+          }
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Results summary -->
+  @if (nearbyPlaces().length > 0) {
+    <div class="pm-results-summary">
+      <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      {{ nearbyPlaces().length }} local(is) encontrado(s) em um raio de
+      <strong>{{ radius() >= 1000 ? (radius() / 1000) + ' km' : radius() + 'm' }}</strong>
+    </div>
+  }
+
+</section>
