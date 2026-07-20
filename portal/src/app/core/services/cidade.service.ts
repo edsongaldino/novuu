@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -12,7 +12,7 @@ export interface Cidade {
   providedIn: 'root'
 })
 export class CidadeService {
-  private apiUrl = 'http://localhost:5135/api/cidades';
+  private apiUrl = '/api/cidades';
 
   constructor(private http: HttpClient) {}
 

@@ -29,12 +29,6 @@ public class EmpreendimentoService : IEmpreendimentoService
                                      (e.Descricao != null && e.Descricao.ToLower().Contains(queryLower)));
         }
 
-        if (request.CidadeId.HasValue)
-        {
-            // Simple filter for mock data. We can extend relationships as database model evolves
-            query = query.Where(e => e.Nome.Contains("CuiabÃ¡") || e.Descricao.Contains("CuiabÃ¡"));
-        }
-
         if (!string.IsNullOrWhiteSpace(request.Tipo))
         {
             query = query.Where(e => e.Tipo == request.Tipo);

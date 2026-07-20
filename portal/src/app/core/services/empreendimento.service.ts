@@ -24,7 +24,7 @@ export interface AutocompleteResult {
   providedIn: 'root'
 })
 export class EmpreendimentoService {
-  private apiUrl = 'http://localhost:5135/api/empreendimentos';
+  private apiUrl = '/api/empreendimentos';
 
   constructor(private http: HttpClient) {}
 

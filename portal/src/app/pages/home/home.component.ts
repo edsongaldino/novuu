@@ -56,12 +56,14 @@ export class HomeComponent {
   }
 
   protected selectSuggestionText(text: string) {
-    if (text.includes('Américas')) {
-      this.router.navigate(['/busca'], { queryParams: { query: 'Jardim das Américas' } });
-    } else if (text.includes('1 milhão')) {
-      this.router.navigate(['/busca'], { queryParams: { precoMaximo: 1000000 } });
-    } else if (text.includes('Plaenge')) {
-      this.router.navigate(['/busca'], { queryParams: { query: 'Plaenge' } });
+    if (text.includes('Residenciais')) {
+      this.router.navigate(['/busca'], { queryParams: { query: 'Residencial' } });
+    } else if (text.includes('Lotes')) {
+      this.router.navigate(['/busca'], { queryParams: { tipo: 'Loteamento' } });
+    } else if (text.includes('500 mil')) {
+      this.router.navigate(['/busca'], { queryParams: { precoMaximo: 500000 } });
+    } else if (text.includes('Alto Padrão')) {
+      this.router.navigate(['/busca'], { queryParams: { precoMinimo: 1500000 } });
     } else {
       this.router.navigate(['/busca'], { queryParams: { query: text } });
     }

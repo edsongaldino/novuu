@@ -1,4 +1,4 @@
-﻿import { Injectable, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
@@ -12,7 +12,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5135/api/auth';
+  private apiUrl = '/api/auth';
   
   // Reactive signals for login state
   isLoggedIn = signal(false);

@@ -2,13 +2,14 @@
 
 :root {
   /* Brand Colors - NOVUU */
-  --primary-color: #0A0A0A;        /* Rich Black */
-  --primary-light: #262626;
-  --primary-dark: #000000;
-  --secondary-color: #E5E5E5;      /* Platinum / Silver */
-  --secondary-light: #F5F5F5;
-  --secondary-dark: #A3A3A3;
-  --accent-color: #4F46E5;         /* Indigo / Tech feel */
+  --primary-color: #091b3d;        /* Dark Navy Blue */
+  --primary-light: #1e3a8a;
+  --primary-dark: #0f172a;
+  --secondary-color: #f1f5f9;      /* Platinum / Silver */
+  --secondary-light: #ffffff;
+  --secondary-dark: #cbd5e1;
+  --accent-color: #ff8c00;         /* Orange */
+  --accent-blue: #2169ff;          /* Bright Blue */
   
   /* Neutral Colors */
   --bg-color: #f3f4f6;             /* Gray 100 for admin background */

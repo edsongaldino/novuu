@@ -13,7 +13,7 @@ export interface Construtora {
   providedIn: 'root'
 })
 export class ConstrutoraService {
-  private apiUrl = 'http://localhost:5135/api/construtoras';
+  private apiUrl = '/api/construtoras';
 
   constructor(private http: HttpClient) {}
 

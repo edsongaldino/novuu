@@ -21,8 +21,8 @@ export interface Bairro {
   providedIn: 'root'
 })
 export class CidadeService {
-  private baseCidadeUrl = 'http://localhost:5135/api/cidades';
-  private baseBairroUrl = 'http://localhost:5135/api/bairros';
+  private baseCidadeUrl = '/api/cidades';
+  private baseBairroUrl = '/api/bairros';
 
   constructor(private http: HttpClient) {}
 

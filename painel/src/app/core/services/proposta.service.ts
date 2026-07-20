@@ -31,7 +31,7 @@ export interface CreatePropostaRequest {
   providedIn: 'root'
 })
 export class PropostaService {
-  private apiUrl = 'http://localhost:5135/api/propostas';
+  private apiUrl = '/api/propostas';
 
   constructor(private http: HttpClient) {}
 
