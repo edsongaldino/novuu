@@ -1,27 +1,4 @@
 services:
-  traefik:
-    image: traefik:v2.10
-    container_name: traefik
-    restart: always
-    command:
-      - "--api.insecure=false"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      # Configuração para gerar certificado SSL automático (Let's Encrypt)
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      # - "--certificatesresolvers.myresolver.acme.email=seuemail@novuu.com.br" # Recomendado preencher
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "traefik_certs:/letsencrypt"
-    networks:
-      - novuu_network
-
   db:
     image: postgres:15
     container_name: novuu_db_prod
@@ -49,17 +26,19 @@ services:
       - db
     networks:
       - novuu_network
+      - traefik_proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.rule=Host(`api.novuu.com.br`)"
       - "traefik.http.routers.api.entrypoints=websecure"
-      - "traefik.http.routers.api.tls.certresolver=myresolver"
+      - "traefik.http.routers.api.tls.certresolver=le"
       - "traefik.http.services.api.loadbalancer.server.port=8080"
       # Redireciona HTTP para HTTPS
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.routers.api-http.rule=Host(`api.novuu.com.br`)"
       - "traefik.http.routers.api-http.entrypoints=web"
       - "traefik.http.routers.api-http.middlewares=redirect-to-https"
+      - "traefik.docker.network=traefik_proxy"
 
   portal:
     image: ghcr.io/edsongaldino/novuu-portal:main
@@ -69,15 +48,17 @@ services:
       - NODE_ENV=production
     networks:
       - novuu_network
+      - traefik_proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.portal.rule=Host(`novuu.com.br`) || Host(`www.novuu.com.br`)"
       - "traefik.http.routers.portal.entrypoints=websecure"
-      - "traefik.http.routers.portal.tls.certresolver=myresolver"
+      - "traefik.http.routers.portal.tls.certresolver=le"
       - "traefik.http.services.portal.loadbalancer.server.port=4000" # SSR roda na 4000
       - "traefik.http.routers.portal-http.rule=Host(`novuu.com.br`) || Host(`www.novuu.com.br`)"
       - "traefik.http.routers.portal-http.entrypoints=web"
       - "traefik.http.routers.portal-http.middlewares=redirect-to-https"
+      - "traefik.docker.network=traefik_proxy"
 
   painel:
     image: ghcr.io/edsongaldino/novuu-painel:main
@@ -85,20 +66,23 @@ services:
     restart: always
     networks:
       - novuu_network
+      - traefik_proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.painel.rule=Host(`painel.novuu.com.br`)"
       - "traefik.http.routers.painel.entrypoints=websecure"
-      - "traefik.http.routers.painel.tls.certresolver=myresolver"
+      - "traefik.http.routers.painel.tls.certresolver=le"
       - "traefik.http.services.painel.loadbalancer.server.port=80" # SPA roda no nginx interno (80)
       - "traefik.http.routers.painel-http.rule=Host(`painel.novuu.com.br`)"
       - "traefik.http.routers.painel-http.entrypoints=web"
       - "traefik.http.routers.painel-http.middlewares=redirect-to-https"
+      - "traefik.docker.network=traefik_proxy"
 
 networks:
   novuu_network:
     driver: bridge
+  traefik_proxy:
+    external: true
 
 volumes:
   pgdata_prod:
-  traefik_certs:
