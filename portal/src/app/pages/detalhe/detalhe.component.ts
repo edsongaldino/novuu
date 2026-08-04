@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EmpreendimentoService } from '../../core/services/empreendimento.service';
 import { ProximityMapComponent } from './proximity-map/proximity-map.component';
+import { environment } from '../../../environments/environment';
 
 interface MockPlanta {
   nome: string;
@@ -121,7 +122,7 @@ export class DetalheComponent implements OnInit {
         this.enrichData(data);
         
         // Fetch actual legacy photos on disk from our new API endpoint
-        this.http.get<string[]>(`http://localhost:5135/api/empreendimentos/${id}/photos`).subscribe({
+        this.http.get<string[]>(`${environment.apiUrl}/api/empreendimentos/${id}/photos`).subscribe({
           next: (photos) => {
             if (photos && photos.length > 0) {
               this.galleryImages.set(photos);
@@ -131,7 +132,7 @@ export class DetalheComponent implements OnInit {
         });
 
         // Fetch categorized photos from fotos table
-        this.http.get<CategorizedPhoto[]>(`http://localhost:5135/api/empreendimentos/${id}/photos-categorized`).subscribe({
+        this.http.get<CategorizedPhoto[]>(`${environment.apiUrl}/api/empreendimentos/${id}/photos-categorized`).subscribe({
           next: (photos) => {
             if (photos && photos.length > 0) {
               this.categorizedPhotos.set(photos);
@@ -414,7 +415,7 @@ export class DetalheComponent implements OnInit {
       status: 'Novo'
     };
 
-    this.http.post('http://localhost:5135/api/leads', leadPayload).subscribe({
+    this.http.post(`${environment.apiUrl}/api/leads`, leadPayload).subscribe({
       next: () => {
         this.formSubmitted.set(true);
         this.submitting.set(false);

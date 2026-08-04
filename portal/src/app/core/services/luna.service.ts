@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface ChatResponse {
   reply: string;
@@ -10,7 +11,7 @@ export interface ChatResponse {
   providedIn: 'root'
 })
 export class LunaService {
-  private apiUrl = '/api/chat';
+  private apiUrl = `${environment.apiUrl}/api/chat`;
 
   constructor(private http: HttpClient) {}
 

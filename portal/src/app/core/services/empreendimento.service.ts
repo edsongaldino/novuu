@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface EmpreendimentoListItem {
   id: number;
@@ -24,7 +25,7 @@ export interface AutocompleteResult {
   providedIn: 'root'
 })
 export class EmpreendimentoService {
-  private apiUrl = '/api/empreendimentos';
+  private apiUrl = `${environment.apiUrl}/api/empreendimentos`;
 
   constructor(private http: HttpClient) {}
 

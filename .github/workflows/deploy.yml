@@ -1,0 +1,111 @@
+name: Build and Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - main
+  # Permite rodar manualmente
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  # Repositório no GitHub em letras minúsculas
+  IMAGE_BASE: ghcr.io/edsongaldino/novuu
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # --- BUILD API ---
+      - name: Extract metadata for API
+        id: meta_api
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_BASE }}-api
+
+      - name: Build and push API image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./api
+          push: true
+          tags: ${{ steps.meta_api.outputs.tags }}
+          labels: ${{ steps.meta_api.outputs.labels }}
+
+      # --- BUILD PORTAL ---
+      - name: Extract metadata for Portal
+        id: meta_portal
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_BASE }}-portal
+
+      - name: Build and push Portal image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./portal
+          push: true
+          tags: ${{ steps.meta_portal.outputs.tags }}
+          labels: ${{ steps.meta_portal.outputs.labels }}
+
+      # --- BUILD PAINEL ---
+      - name: Extract metadata for Painel
+        id: meta_painel
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_BASE }}-painel
+
+      - name: Build and push Painel image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./painel
+          push: true
+          tags: ${{ steps.meta_painel.outputs.tags }}
+          labels: ${{ steps.meta_painel.outputs.labels }}
+
+  deploy:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Copy compose and env files to Droplet
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: root
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          source: "docker-compose.prod.yml,.env.example"
+          target: "/opt/novuu"
+          
+      - name: Deploy on Droplet via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: root
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            cd /opt/novuu
+            
+            # Autentica o Docker do servidor no seu GitHub Registry
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            
+            # Baixa as imagens mais recentes e recria os containers
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d
+            
+            # Limpa imagens antigas não usadas
+            docker image prune -af

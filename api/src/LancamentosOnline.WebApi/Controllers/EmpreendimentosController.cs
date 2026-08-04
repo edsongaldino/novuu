@@ -239,6 +239,7 @@ public class EmpreendimentosController : ControllerBase
     [HttpGet("{id}/photos")]
     public IActionResult GetPhotos(int id)
     {
+        var baseUrl = $"{Request.Scheme}://{Request.Host}";
         var list = new System.Collections.Generic.List<string>();
         var legacyUploadsPat = @"C:\laragon\www\lancamentos\public\uploads";
         
@@ -255,7 +256,7 @@ public class EmpreendimentosController : ControllerBase
                     var ext = System.IO.Path.GetExtension(f).ToLower();
                     if (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".webp")
                     {
-                        list.Add($"http://localhost:5135/uploads/empreendimento/{id}/original/{fileName}");
+                        list.Add($"{baseUrl}/uploads/empreendimento/{id}/original/{fileName}");
                     }
                 }
             }
@@ -275,7 +276,7 @@ public class EmpreendimentosController : ControllerBase
                     var ext = System.IO.Path.GetExtension(f).ToLower();
                     if (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".webp")
                     {
-                        list.Add($"http://localhost:5135/uploads/empreendimento/{id}/{fileName}");
+                        list.Add($"{baseUrl}/uploads/empreendimento/{id}/{fileName}");
                     }
                 }
             }
@@ -295,7 +296,7 @@ public class EmpreendimentosController : ControllerBase
                     var ext = System.IO.Path.GetExtension(f).ToLower();
                     if (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".webp")
                     {
-                        list.Add($"http://localhost:5135/uploads/empreendimento/{id}/arquivo/{fileName}");
+                        list.Add($"{baseUrl}/uploads/empreendimento/{id}/arquivo/{fileName}");
                     }
                 }
             }
@@ -323,11 +324,11 @@ public class EmpreendimentosController : ControllerBase
                 }
                 else if (emp.Logomarca.Contains("/"))
                 {
-                    uniqueList.Add($"http://localhost:5135/{emp.Logomarca}");
+                    uniqueList.Add($"{baseUrl}/{emp.Logomarca}");
                 }
                 else
                 {
-                    uniqueList.Add($"http://localhost:5135/uploads/empreendimento/{id}/arquivo/{emp.Logomarca}");
+                    uniqueList.Add($"{baseUrl}/uploads/empreendimento/{id}/arquivo/{emp.Logomarca}");
                 }
             }
         }
@@ -344,6 +345,7 @@ public class EmpreendimentosController : ControllerBase
     [HttpGet("{id}/photos-categorized")]
     public IActionResult GetPhotosCategorized(int id)
     {
+        var baseUrl = $"{Request.Scheme}://{Request.Host}";
         var legacyUploadsPath = @"C:\laragon\www\lancamentos\public\uploads";
         
         // Query the fotos table from PostgreSQL for this development
@@ -369,7 +371,7 @@ public class EmpreendimentosController : ControllerBase
             var originalPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), "original", arquivo);
             if (System.IO.File.Exists(originalPath))
             {
-                url = $"http://localhost:5135/uploads/empreendimento/{id}/original/{arquivo}";
+                url = $"{baseUrl}/uploads/empreendimento/{id}/original/{arquivo}";
             }
             else
             {
@@ -377,7 +379,7 @@ public class EmpreendimentosController : ControllerBase
                 var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), arquivo);
                 if (System.IO.File.Exists(rootPath))
                 {
-                    url = $"http://localhost:5135/uploads/empreendimento/{id}/{arquivo}";
+                    url = $"{baseUrl}/uploads/empreendimento/{id}/{arquivo}";
                 }
             }
 

@@ -1,0 +1,104 @@
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: always
+    command:
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      # Configuração para gerar certificado SSL automático (Let's Encrypt)
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      # - "--certificatesresolvers.myresolver.acme.email=seuemail@novuu.com.br" # Recomendado preencher
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "traefik_certs:/letsencrypt"
+    networks:
+      - novuu_network
+
+  db:
+    image: postgres:15
+    container_name: novuu_db_prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${NOVUU_DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${NOVUU_DB_PASSWORD}
+      POSTGRES_DB: ${NOVUU_DB_NAME:-lancamentos}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+    networks:
+      - novuu_network
+
+  api:
+    image: ghcr.io/edsongaldino/novuu-api:latest
+    container_name: novuu_api_prod
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=${NOVUU_CONNECTION_STRING}
+    depends_on:
+      - db
+    networks:
+      - novuu_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`api.novuu.com.br`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=myresolver"
+      - "traefik.http.services.api.loadbalancer.server.port=8080"
+      # Redireciona HTTP para HTTPS
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.api-http.rule=Host(`api.novuu.com.br`)"
+      - "traefik.http.routers.api-http.entrypoints=web"
+      - "traefik.http.routers.api-http.middlewares=redirect-to-https"
+
+  portal:
+    image: ghcr.io/edsongaldino/novuu-portal:latest
+    container_name: novuu_portal_prod
+    restart: always
+    environment:
+      - NODE_ENV=production
+    networks:
+      - novuu_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portal.rule=Host(`novuu.com.br`) || Host(`www.novuu.com.br`)"
+      - "traefik.http.routers.portal.entrypoints=websecure"
+      - "traefik.http.routers.portal.tls.certresolver=myresolver"
+      - "traefik.http.services.portal.loadbalancer.server.port=4000" # SSR roda na 4000
+      - "traefik.http.routers.portal-http.rule=Host(`novuu.com.br`) || Host(`www.novuu.com.br`)"
+      - "traefik.http.routers.portal-http.entrypoints=web"
+      - "traefik.http.routers.portal-http.middlewares=redirect-to-https"
+
+  painel:
+    image: ghcr.io/edsongaldino/novuu-painel:latest
+    container_name: novuu_painel_prod
+    restart: always
+    networks:
+      - novuu_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.painel.rule=Host(`painel.novuu.com.br`)"
+      - "traefik.http.routers.painel.entrypoints=websecure"
+      - "traefik.http.routers.painel.tls.certresolver=myresolver"
+      - "traefik.http.services.painel.loadbalancer.server.port=80" # SPA roda no nginx interno (80)
+      - "traefik.http.routers.painel-http.rule=Host(`painel.novuu.com.br`)"
+      - "traefik.http.routers.painel-http.entrypoints=web"
+      - "traefik.http.routers.painel-http.middlewares=redirect-to-https"
+
+networks:
+  novuu_network:
+    driver: bridge
+
+volumes:
+  pgdata_prod:
+  traefik_certs:

@@ -2,6 +2,7 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 import { EmpreendimentoService, EmpreendimentoListItem } from '../../core/services/empreendimento.service';
 import { CidadeService, Cidade } from '../../core/services/cidade.service';
 
@@ -202,9 +203,9 @@ export class BuscaComponent implements OnInit {
       if (item.logomarca.startsWith('data:')) {
         img = item.logomarca;
       } else if (item.logomarca.includes('/')) {
-        img = `http://localhost:5135/${item.logomarca}`;
+        img = `${environment.apiUrl}/${item.logomarca}`;
       } else {
-        img = `http://localhost:5135/uploads/empreendimento/${item.id}/arquivo/${item.logomarca}`;
+        img = `${environment.apiUrl}/uploads/empreendimento/${item.id}/arquivo/${item.logomarca}`;
       }
     }
 
