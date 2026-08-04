@@ -7,252 +7,207 @@
     </nav>
   </div>
 
-  <div class="search-results-title-row">
-    <h1 class="results-main-title">
-      Sua busca retornou <span class="highlight">{{ totalItems() }}</span> empreendimentos
-    </h1>
-    
-    <div class="layout-controls">
-      <button class="layout-btn" [class.active]="viewMode() === 'grid'" (click)="viewMode.set('grid')" aria-label="Visualização em Grade">
-        <!-- Grid Icon -->
-        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-      </button>
-      <button class="layout-btn" [class.active]="viewMode() === 'list'" (click)="viewMode.set('list')" aria-label="Visualização em Lista">
-        <!-- List Icon -->
-        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-      </button>
+  <div class="search-results-header-container">
+    <!-- Title Area (Left) -->
+    <div class="header-title-area">
+      <h1 class="results-main-title">
+        Sua busca retornou <span class="highlight">{{ totalItems() }}</span> empreendimentos
+      </h1>
+      <span class="results-subtitle">{{ totalItems() }} empreendimentos encontrados</span>
+    </div>
+
+    <!-- Luna Banner (Center-ish / Right) -->
+    <div class="luna-banner-wrapper">
+      <div class="luna-banner-inner">
+        <div class="luna-icon-wrapper">
+          <img src="https://ui-avatars.com/api/?name=Luna&background=f472b6&color=fff&rounded=true" alt="Luna AI" class="luna-avatar" />
+        </div>
+        <div class="luna-text">
+          <span class="luna-title">Converse com a Luna</span>
+          <span class="luna-subtitle">Nossa inteligência que entende, qualifica e conecta.</span>
+        </div>
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="#9ca3af" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </div>
     </div>
   </div>
 
-  <div class="search-layout-body">
-    <!-- Sidebar Filters -->
-    <aside class="filters-sidebar">
-      <div class="filters-header">
-        <h2 class="filters-title">Filtros</h2>
+  <!-- Controls Row -->
+  <div class="search-controls-row">
+    <!-- Filters Toggle -->
+    <button class="toggle-filters-btn" (click)="toggleTopFilters()" [class.active]="showTopFilters()">
+      <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+      <span>Filtros</span>
+    </button>
+
+    <div class="right-controls">
+      <div class="sorting-wrapper">
+        <label for="sort-select">Ordenar por:</label>
+        <select id="sort-select" [value]="orderBy()" (change)="onOrderChange($event)">
+          <option value="valor-asc">Valor (menor ao maior)</option>
+          <option value="valor-desc">Valor (maior ao menor)</option>
+          <option value="nome">Nome (A - Z)</option>
+        </select>
       </div>
 
-      <div class="filter-group">
-        <label for="filter-cidade">Digite a cidade ou estado</label>
-        <div class="filter-input-wrapper">
-          <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          <select id="filter-cidade" [(ngModel)]="selectedCidadeId" name="cidade">
+      <div class="layout-controls">
+        <button class="layout-btn" [class.active]="viewMode() === 'list'" (click)="viewMode.set('list')" aria-label="Visualização em Lista">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        </button>
+        <button class="layout-btn" [class.active]="viewMode() === 'grid'" (click)="viewMode.set('grid')" aria-label="Visualização em Grade">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Filters Panel (Expandable) -->
+  @if (showTopFilters()) {
+    <div class="top-filters-panel">
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label>Cidade</label>
+          <select [(ngModel)]="selectedCidadeId">
             <option [value]="null">Todas as cidades</option>
             @for (cid of cidadesList(); track cid.id) {
               <option [value]="cid.id">{{ cid.nome }} - MT</option>
             }
           </select>
         </div>
-      </div>
-
-      <div class="filter-group">
-        <label for="filter-construtora">Buscar pela construtora</label>
-        <div class="filter-input-wrapper">
-          <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          <select id="filter-construtora" [(ngModel)]="selectedConstrutoraId" name="construtora">
-            <option [value]="null">Todas as construtoras</option>
+        <div class="filter-group">
+          <label>Construtora</label>
+          <select [(ngModel)]="selectedConstrutoraId">
+            <option [value]="null">Todas</option>
             <option [value]="1">Plaenge</option>
             <option [value]="2">Ginco</option>
           </select>
         </div>
-      </div>
-
-      <div class="filter-group">
-        <label for="filter-nome">Nome do empreendimento</label>
-        <div class="filter-input-wrapper">
-          <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="15" y2="17"></line></svg>
-          <input type="text" id="filter-nome" [(ngModel)]="query" placeholder="Ex: Villaggio Volare" />
+        <div class="filter-group">
+          <label>Tipo</label>
+          <select [(ngModel)]="selectedTipo">
+            <option value="">Todos</option>
+            <option value="Vertical">Vertical</option>
+            <option value="Horizontal">Horizontal</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Valor Mínimo</label>
+          <input type="number" [(ngModel)]="precoMin" placeholder="R$ Min" />
+        </div>
+        <div class="filter-group">
+          <label>Valor Máximo</label>
+          <input type="number" [(ngModel)]="precoMax" placeholder="R$ Max" />
         </div>
       </div>
-
-      <div class="filter-group">
-        <label for="filter-tipo">Tipo</label>
-        <select id="filter-tipo" [(ngModel)]="selectedTipo">
-          <option value="">Todos</option>
-          <option value="Vertical">Vertical (Apartamento)</option>
-          <option value="Horizontal">Horizontal (Casa/Lote)</option>
-        </select>
+      <div class="filters-actions">
+        <button class="btn-clear" (click)="query.set(''); selectedCidadeId.set(null); selectedConstrutoraId.set(null); selectedTipo.set(''); precoMin.set(null); precoMax.set(null); applyFilters()">Limpar</button>
+        <button class="btn-apply" (click)="applyFilters()">Aplicar Filtros</button>
       </div>
+    </div>
+  }
 
-      <div class="filter-double-group">
-        <div class="filter-half">
-          <label for="filter-pmin">Valor mínimo</label>
-          <input type="number" id="filter-pmin" [(ngModel)]="precoMin" placeholder="R$ Min" />
-        </div>
-        <div class="filter-half">
-          <label for="filter-pmax">Valor máximo</label>
-          <input type="number" id="filter-pmax" [(ngModel)]="precoMax" placeholder="R$ Max" />
-        </div>
-      </div>
-
-      <!-- Advanced Expandable Section -->
-      <button class="advanced-toggle-btn" (click)="toggleAdvanced()">
-        <span>Busca avançada</span>
-        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" [class.rotated]="showAdvanced()"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </button>
-
-      @if (showAdvanced()) {
-        <div class="advanced-filters-panel">
-          <div class="filter-group">
-            <label for="filter-modalidade">Modalidade</label>
-            <select id="filter-modalidade" [(ngModel)]="modalidade">
-              <option value="">Todas</option>
-              <option value="Lançamento">Lançamento</option>
-              <option value="Em Obras">Em Obras</option>
-              <option value="Pronto">Pronto</option>
-            </select>
-          </div>
-
-          <div class="filter-double-group">
-            <div class="filter-half">
-              <label for="filter-amin">Área mínima (m²)</label>
-              <input type="number" id="filter-amin" [(ngModel)]="areaMin" placeholder="Ex: 80" />
-            </div>
-            <div class="filter-half">
-              <label for="filter-amax">Área máxima (m²)</label>
-              <input type="number" id="filter-amax" [(ngModel)]="areaMax" placeholder="Ex: 300" />
-            </div>
-          </div>
-        </div>
-      }
-
-      <button class="filter-submit-btn" (click)="applyFilters()">Filtrar</button>
-    </aside>
-
-    <!-- Main Results Column -->
+  <div class="search-layout-body">
     <main class="results-content-area">
-      <!-- Sorting & Counter Row -->
-      <div class="results-meta-header">
-        <span class="results-counter">{{ totalItems() }} empreendimentos encontrados</span>
-        
-        <div class="results-sorting-wrapper" style="display: flex; gap: var(--spacing-md); align-items: center;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label for="sort-select">Ordenar por:</label>
-            <select id="sort-select" [value]="orderBy()" (change)="onOrderChange($event)" style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.9rem; background: white; font-weight: 500; cursor: pointer;">
-              <option value="valor-asc">Valor (menor ao maior)</option>
-              <option value="valor-desc">Valor (maior ao menor)</option>
-              <option value="nome">Nome (A - Z)</option>
-            </select>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label for="pageSize-select">Itens por página:</label>
-            <select id="pageSize-select" [value]="pageSize()" (change)="onPageSizeChange($event)" style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.9rem; background: white; font-weight: 500; cursor: pointer;">
-              <option [value]="5">5</option>
-              <option [value]="10">10</option>
-              <option [value]="20">20</option>
-              <option [value]="50">50</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Loading State -->
       @if (loading()) {
         <div class="results-loader">
           <div class="spinner"></div>
           <p>Buscando os melhores lançamentos...</p>
         </div>
       } @else {
-        <!-- Results Cards Grid/List -->
         <div class="results-cards-wrapper" [class.grid-view]="viewMode() === 'grid'">
           @for (item of getPaginatedResults(); track item.id) {
             <article class="empreendimento-card" [routerLink]="['/empreendimento', item.id]">
               <div class="card-image-section">
                 <img [src]="item.imagemUrl" [alt]="item.nome" loading="lazy" />
+                <span class="badge badge-modalidade" [class]="item.modalidade.toLowerCase().replace(' ', '-')">{{ item.modalidade | uppercase }}</span>
                 <button class="card-wishlist-btn" [class.active]="item.wishlist" (click)="toggleWishlist(item, $event)" aria-label="Favoritar">
-                  <svg viewBox="0 0 24 24" width="20" height="20" [attr.fill]="item.wishlist ? '#ff4f4f' : 'none'" [attr.stroke]="item.wishlist ? '#ff4f4f' : '#fff'" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                  <svg viewBox="0 0 24 24" width="20" height="20" [attr.fill]="item.wishlist ? '#fff' : 'none'" [attr.stroke]="'#fff'" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                 </button>
               </div>
 
               <div class="card-info-section">
-                <div class="card-badges-row">
-                  <span class="badge badge-modalidade" [class]="item.modalidade.toLowerCase().replace(' ', '-')">{{ item.modalidade }}</span>
-                  <span class="badge badge-tipo" [class]="item.tipo.toLowerCase()">{{ item.tipo }}</span>
+                <div class="card-header-row">
+                  <h3 class="card-title">{{ item.nome }}</h3>
+                  <div class="construtora-brand-logo">
+                    <span class="logo-txt" [class]="item.logoConstrutora.toLowerCase()">{{ item.logoConstrutora }}</span>
+                  </div>
                 </div>
-
-                <h3 class="card-title">{{ item.nome }}</h3>
                 
                 <p class="card-location">
                   <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                   <span>{{ item.bairroName }}, {{ item.cidadeId === 1 ? 'Cuiabá' : 'Barra do Garças' }} - {{ item.uf }}</span>
                 </p>
 
-                <div class="card-specs-row" style="display: flex; gap: 16px; margin: 12px 0; font-size: 0.88rem; color: var(--text-secondary); flex-wrap: wrap;">
-                  <span class="card-spec" style="display: inline-flex; align-items: center; gap: 6px;">
-                    <!-- Area Icon -->
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
-                    <span>{{ item.metragens }}</span>
-                  </span>
-                  
-                  <span class="card-spec" style="display: inline-flex; align-items: center; gap: 6px;">
-                    <!-- Bedroom Icon -->
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M3 11V9a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v2"></path><path d="M12 5v14"></path><path d="M3 18v-7h18v7"></path><path d="M7 11h3V8H7v3zm7 0h3V8h-3v3z"></path></svg>
-                    <span>{{ item.dormitorios }}</span>
-                  </span>
-                  
-                  <span class="card-spec" style="display: inline-flex; align-items: center; gap: 6px;">
-                    <!-- Car Icon -->
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                    <span>{{ item.vagas }}</span>
-                  </span>
-
-                  @if (item.previsaoEntrega) {
-                    <span class="card-spec" style="display: inline-flex; align-items: center; gap: 6px;">
-                      <!-- Calendar Icon -->
-                      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                      <span>Entrega: {{ item.previsaoEntrega }}</span>
-                    </span>
-                  }
+                <div class="card-specs-row">
+                  <span>{{ item.dormitorios }}</span>
+                  <span class="dot">•</span>
+                  <span>{{ item.metragens }}</span>
+                  <span class="dot">•</span>
+                  <span>{{ item.vagas }}</span>
                 </div>
 
-                @if (viewMode() === 'list' && item.descricao) {
-                  <p class="card-description" style="font-size: 0.88rem; color: var(--text-secondary); margin: var(--spacing-xs) 0 var(--spacing-md) 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.45;" [innerHTML]="item.descricao"></p>
-                }
-
-                <div class="card-footer-row">
-                  <div class="construtora-brand-logo">
-                    <!-- Simple Logo text / fallback -->
-                    <span class="logo-txt" [class]="item.logoConstrutora.toLowerCase()">{{ item.logoConstrutora }}</span>
+                <div class="card-footer-grid">
+                  <div class="footer-col col-entrega">
+                    <span class="footer-lbl">Entrega</span>
+                    <span class="footer-val">{{ item.previsaoEntrega || 'Sob consulta' }}</span>
                   </div>
-                  
-                  @if (item.valorInicial && item.valorInicial > 0) {
-                    <div class="card-price-details">
-                      <div class="price-lbl">A partir de</div>
-                      <div class="price-val">{{ item.valorInicial | currency:'BRL':'symbol':'1.0-0' }}</div>
-                    </div>
-                  } @else {
-                    <div class="card-price-details">
-                      <div class="price-lbl">Consulte-nos</div>
-                      <div class="price-val" style="font-size: 1.15rem; color: var(--text-secondary); font-weight: 700;">Sob consulta</div>
-                    </div>
-                  }
+
+                  <div class="footer-col col-progresso">
+                    @if (item.percentualConcluido !== null) {
+                      <div class="progress-circle-wrapper">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                          <path class="circle-bg"
+                            d="M18 2.0845
+                              a 15.9155 15.9155 0 0 1 0 31.831
+                              a 15.9155 15.9155 0 0 1 0 -31.831"
+                          />
+                          <path class="circle"
+                            [attr.stroke-dasharray]="item.percentualConcluido + ', 100'"
+                            d="M18 2.0845
+                              a 15.9155 15.9155 0 0 1 0 31.831
+                              a 15.9155 15.9155 0 0 1 0 -31.831"
+                          />
+                        </svg>
+                        <div class="progress-text">
+                          <strong>{{ item.percentualConcluido }}%</strong> concluído
+                        </div>
+                      </div>
+                    } @else {
+                      <div class="progress-circle-wrapper">
+                        <svg viewBox="0 0 36 36" class="circular-chart"><path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg>
+                        <div class="progress-text"><strong>-</strong></div>
+                      </div>
+                    }
+                  </div>
+
+                  <div class="footer-col col-preco">
+                    <div class="price-lbl">A PARTIR DE</div>
+                    <div class="price-val">{{ item.valorInicial ? (item.valorInicial | currency:'BRL':'symbol':'1.0-0') : 'Sob consulta' }}</div>
+                    <a class="btn-ver-plantas">Ver plantas <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                  </div>
                 </div>
 
-                <div class="card-actions-row">
-                  <a class="btn-ver-detalhes" [routerLink]="['/empreendimento', item.id]">Ver detalhes</a>
+                <div class="card-update-date">
+                  Atualizado em: {{ item.dataAtualizacao }}
                 </div>
               </div>
             </article>
           }
           
-          <!-- Empty State -->
           @if (results().length === 0) {
             <div class="results-empty-state">
               <svg viewBox="0 0 24 24" width="48" height="48" stroke="#94a3b8" stroke-width="1.5" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
               <h3>Nenhum empreendimento encontrado</h3>
-              <p>Tente ajustar os termos de busca ou remover alguns filtros na barra lateral.</p>
+              <p>Tente ajustar os termos de busca ou remover alguns filtros.</p>
               <button class="clear-filters-btn" (click)="query.set(''); selectedCidadeId.set(null); selectedConstrutoraId.set(null); selectedTipo.set(''); precoMin.set(null); precoMax.set(null); applyFilters()">Limpar Filtros</button>
             </div>
           }
         </div>
 
-        <!-- Pagination Controls -->
         @if (totalPages() > 1) {
           <div class="pagination-container">
             <button class="pag-btn prev" [disabled]="currentPage() === 1" (click)="setPage(currentPage() - 1)">
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
-            
             <div class="pag-pages">
               @for (page of getPagesArray(); track page) {
                 <button class="pag-number-btn" [class.active]="currentPage() === page" (click)="setPage(page)">
@@ -260,7 +215,6 @@
                 </button>
               }
             </div>
-
             <button class="pag-btn next" [disabled]="currentPage() === totalPages()" (click)="setPage(currentPage() + 1)">
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
@@ -269,4 +223,9 @@
       }
     </main>
   </div>
+
+  <!-- Luna Floating Button -->
+  <button class="luna-fab" aria-label="Converse com a Luna">
+    <img src="https://ui-avatars.com/api/?name=Luna&background=f472b6&color=fff&rounded=true" alt="Luna AI" />
+  </button>
 </div>

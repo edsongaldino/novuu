@@ -17,6 +17,8 @@ interface EnrichedEmpreendimento extends EmpreendimentoListItem {
   modalidade: string;
   wishlist: boolean;
   cidadeId: number;
+  percentualConcluido: number | null;
+  dataAtualizacao: string;
 }
 
 @Component({
@@ -42,6 +44,7 @@ export class BuscaComponent implements OnInit {
   protected areaMax = signal<number | null>(null);
 
   protected showAdvanced = signal(false);
+  protected showTopFilters = signal(false);
   protected viewMode = signal<'list' | 'grid'>('list');
   protected orderBy = signal('valor-asc');
 
@@ -83,6 +86,10 @@ export class BuscaComponent implements OnInit {
     this.showAdvanced.set(!this.showAdvanced());
   }
 
+  protected toggleTopFilters() {
+    this.showTopFilters.set(!this.showTopFilters());
+  }
+
   protected applyFilters() {
     const queryParams: any = {};
     if (this.query()) queryParams.query = this.query();
@@ -97,6 +104,7 @@ export class BuscaComponent implements OnInit {
       queryParams,
       queryParamsHandling: 'merge'
     });
+    this.showTopFilters.set(false);
   }
 
   protected executeSearch() {
@@ -247,6 +255,10 @@ export class BuscaComponent implements OnInit {
       modalidade = 'Pronto';
     }
 
+    let percentualConcluido = null;
+    if (modalidade === 'Em Obras') percentualConcluido = 62;
+    if (modalidade === 'Pronto') percentualConcluido = 100;
+
     return {
       ...item,
       bairroName: bairro,
@@ -258,7 +270,9 @@ export class BuscaComponent implements OnInit {
       logoConstrutora: logo,
       modalidade,
       wishlist: false,
-      cidadeId
+      cidadeId,
+      percentualConcluido,
+      dataAtualizacao: '17/07/2026'
     };
   }
 
