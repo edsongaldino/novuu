@@ -38,7 +38,7 @@ services:
       - novuu_network
 
   api:
-    image: ghcr.io/edsongaldino/novuu-api:latest
+    image: ghcr.io/edsongaldino/novuu-api:main
     container_name: novuu_api_prod
     restart: always
     environment:
@@ -62,7 +62,7 @@ services:
       - "traefik.http.routers.api-http.middlewares=redirect-to-https"
 
   portal:
-    image: ghcr.io/edsongaldino/novuu-portal:latest
+    image: ghcr.io/edsongaldino/novuu-portal:main
     container_name: novuu_portal_prod
     restart: always
     environment:
@@ -80,7 +80,7 @@ services:
       - "traefik.http.routers.portal-http.middlewares=redirect-to-https"
 
   painel:
-    image: ghcr.io/edsongaldino/novuu-painel:latest
+    image: ghcr.io/edsongaldino/novuu-painel:main
     container_name: novuu_painel_prod
     restart: always
     networks:
