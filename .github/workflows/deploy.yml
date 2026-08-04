@@ -89,7 +89,7 @@ jobs:
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
           source: "docker-compose.prod.yml,.env.example"
-          target: "/opt/novuu"
+          target: "/root/apps/novuu"
           
       - name: Deploy on Droplet via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -98,7 +98,7 @@ jobs:
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
-            cd /opt/novuu
+            cd /root/apps/novuu
             
             # Autentica o Docker do servidor no seu GitHub Registry
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
