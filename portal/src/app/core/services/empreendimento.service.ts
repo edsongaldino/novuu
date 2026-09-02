@@ -7,11 +7,27 @@ export interface EmpreendimentoListItem {
   id: number;
   nome: string;
   construtoraNome: string;
+  construtoraId?: number;
+  construtoraLogoUrl?: string;
   tipo: string;
+  subtipoId?: number;
+  subtipoNome?: string;
+  variacaoId?: number;
+  variacaoNome?: string;
+  enderecoId?: number;
+  enderecoFormatado?: string;
+  logradouro?: string;
+  numero?: string;
+  bairroNome?: string;
+  cidadeNome?: string;
+  estadoUf?: string;
+  latitude?: number;
+  longitude?: number;
   valorInicial?: number;
   valorFinal?: number;
   previsaoEntrega?: string;
   logomarca?: string;
+  imagemUrl?: string;
   descricao?: string;
 }
 

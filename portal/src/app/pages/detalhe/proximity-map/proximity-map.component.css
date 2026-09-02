@@ -26,7 +26,7 @@
   font-weight: 700;
   color: var(--primary-color);
   margin: 0 0 4px 0;
-  border-left: 4px solid var(--secondary-color);
+  border-left: 4px solid #0055ff;
   padding-left: 12px;
   text-transform: uppercase;
   letter-spacing: 0.04em;

@@ -2,7 +2,7 @@
 # Atenção: Requer Node.js, .NET 9 SDK, e PostgreSQL (rodando na porta 5432 com senha '259864') instalados na máquina.
 
 Write-Host "Iniciando a API .NET..." -ForegroundColor Cyan
-Start-Process -FilePath "dotnet" -ArgumentList "run" -WorkingDirectory ".\api\src\LancamentosOnline.WebApi" -WindowStyle Normal
+Start-Process -FilePath "dotnet" -ArgumentList "run" -WorkingDirectory ".\api\src\Novuu.WebApi" -WindowStyle Normal
 
 Write-Host "Iniciando o Portal Angular..." -ForegroundColor Green
 Start-Process -FilePath "cmd.exe" -ArgumentList "/c npm install && npm start" -WorkingDirectory ".\portal" -WindowStyle Normal

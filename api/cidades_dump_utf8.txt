@@ -1,0 +1,28 @@
+﻿id	estado_id	nome
+1	1	Cuiabá
+2	1	Várzea Grande
+3	1	Rondonópolis
+4	1	Chapada dos Guimarães
+5	13	Balneário Camboriú
+6	1	Sinop
+7	1	Primavera do Leste
+8	14	Goiânia
+9	13	Itapema
+10	13	São José
+11	15	São Paulo
+12	16	Fortaleza
+13	1	Campo Verde
+14	13	Porto Belo
+15	1	Campo Novo dos Parecis
+16	17	Uberlândia
+17	15	Holambra
+18	15	Mogi Mirim
+19	1	Tapurah
+20	17	Uberaba
+21	18	Natal
+22	19	Campo Grande
+23	1	Nova Mutum
+24	1	Lucas do Rio Verde
+25	1	Barra do Garças
+26	13	Itajaí
+27	1	Paranatinga

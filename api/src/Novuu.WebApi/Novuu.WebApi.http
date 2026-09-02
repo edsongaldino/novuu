@@ -1,0 +1,6 @@
+@Novuu.WebApi_HostAddress = http://localhost:5135
+
+GET {{Novuu.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

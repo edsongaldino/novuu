@@ -1,0 +1,204 @@
+﻿id	cidade_id	nome
+1	1	Jardim das Palmeiras
+2	1	Duque de Caxias
+3	1	Jardim das Américas
+4	1	Jardim Aclimação
+5	1	Centro Sul
+6	1	Goiabeiras
+7	1	Consil
+8	1	Alvorada
+9	1	Bosque da Saúde
+10	1	Jardim das Palmeiras
+11	1	Araés
+12	1	Recanto dos Pássaros
+13	1	Jardim Universitário
+14	1	Beira Rio
+15	1	Novo Terceiro
+16	1	Quilombo
+17	1	Morada do Sol
+18	1	Santa Rosa
+19	1	Santa Rosa
+20	1	Jardim Mariana
+21	1	Centro Norte
+22	1	Barra do Pari
+23	1	Cidade Alta
+24	1	Cidade Verde
+25	1	Coophamil
+26	1	Despraiado
+27	1	Jardim Beira Rio
+28	1	Jardim Cuiabá
+29	1	Jardim Santa Isabel
+30	1	Jardim Ubirajara
+31	1	Novo Colorado
+32	1	Novo Terceiro
+33	1	Popular
+34	1	Porto
+35	1	Quilombo
+36	1	Ribeirão da Ponte
+37	1	Ribeirão do Lipa
+38	1	Santa Marta
+39	1	Sucuri
+40	1	Centro Politico Administrativo
+41	1	Jardim Florianópolis
+42	1	Jardim Vitória
+43	1	Morada da Serra
+44	1	Morada do Ouro
+45	1	Nova Conquista
+46	1	Novo Paraíso
+47	1	Primeiro de Março
+48	1	Três Barras
+49	1	Ouro Fino
+50	1	Doutor Fábio
+51	1	Bandeirantes
+52	1	Baú
+53	1	Bela Vista
+54	1	Boa Esperança
+55	1	Dom Aquino
+56	1	Jardim Aclimação
+57	1	Jardim Califórnia
+58	1	Jardim Eldorado
+59	1	Jardim Europa
+60	1	Jardim Itália
+61	1	Jardim Leblon
+62	1	Jardim Paulista
+63	1	Jardim Petrópolis
+64	1	Jardim Shangri-lá
+65	1	Jardim Tropical
+66	1	Lixeira
+67	1	Morada dos Nobres
+68	1	Paiaguás
+69	1	Pedregal
+70	1	Pico do Amor
+71	1	Poção
+72	1	Praeiro
+73	1	Santa Cruz
+74	1	Terra Nova
+75	1	Coxipó
+76	1	Coophema
+77	1	Grande Terceiro
+78	1	Bom Clima
+79	1	Rodoviaria Parque
+80	1	Carumbé
+81	1	Carrapicho
+82	1	Parque Cuiabá
+83	1	Parque Atalaia
+84	1	Santa Helena
+85	2	Carrapixo
+86	2	Nova Várzea Grande
+87	2	Alameda
+88	1	Jardim Imperial
+89	1	Verdão
+90	2	Centro
+91	1	Residencial Paiguás
+92	2	Ponte Nova
+93	1	Parque Georgia
+94	1	Parque Eldorado
+95	2	Jardim dos Estados
+96	1	Mirante do Parí
+97	2	Mirante do Parí
+98	1	Parí
+99	1	Jardim Humaitá 1
+100	2	Santa Isabel
+101	4	Aldeia Velha
+102	5	Prainha
+103	6	Residencial Florença
+104	2	Jardim Glória
+105	1	São João Del Rei
+106	7	Centro
+107	5	Centro
+108	5	Barra Sul
+109	8	Setor Sul
+110	9	Centro
+111	10	Kobrasol
+112	5	Bairro dos Estados
+113	9	Meia Praia
+114	11	Jardim América
+115	11	Vila Madalena
+116	12	Cocó
+117	11	Bela Vista
+118	13	Vale do Sol
+119	14	Perequê
+120	2	Chapéu do Sol
+121	15	Alvorada
+122	15	MT 235
+123	8	Setor Progresso
+124	1	Bela Marina
+125	8	Setor Progresso
+126	8	Setor Faiçalville
+127	8	Santa Rita
+128	8	Moinho dos Ventos
+129	8	Setor Bueno
+130	16	Vigilato Pereira
+131	1	Osmar Cabral
+132	1	Tijucal
+133	1	Região das Torres
+134	3	Santa Marta
+135	3	Vila Aurora
+136	3	Parque Sagrada Família
+137	3	Centro
+141	19	Minas Gerais
+142	19	Dona Zulmira
+143	1	Jardim Industriário
+144	12	Moura Brasil
+145	1	Residencial São Carlos
+146	1	Tancredo Neves
+147	3	Vila Portal das Águas
+148	3	Residencial Padre Lothar
+149	3	Vila Planalto
+150	17	
+151	18	Jardim Nazareth
+152	3	Residencial Santa Marina
+153	2	Ikaray
+154	2	Centro-Norte
+155	1	Chácara dos Pinheiros
+156	3	Vila Aurora I
+157	3	Jardim Belo Horizonte
+158	1	Centro-Norte
+159	3	Jardim Santa Marta
+160	1	Residencial Paiaguás
+161	1	Condomínio Florais Cuiabá Residencial
+162	11	Vila Nova Conceição
+163	1	Centro-Sul
+164	4	
+165	1	Loteamento Salvador Costa Marques
+166	1	São Francisco
+167	1	Parque Ohara
+168	13	
+169	1	Distrito Industriário
+170	2	Petrópolis
+171	1	Distrito Industrial
+172	1	Pedra 90
+173	1	Condomínio Belvedere
+174	2	Centro-Sul
+175	19	
+176	20	Centro
+177	21	Pajuçara
+178	22	Jardim Leblon
+179	16	Martins
+180	16	Lidice
+181	1	Dom Bosco
+182	2	Mapim
+183	2	Cristo Rei
+184	23	
+185	23	Jardim Califórnia
+186	23	Centro
+187	24	
+188	1	Residencial Coxipó
+189	1	Jardim Presidente
+190	3	Vila Operária
+191	24	Alvorada
+192	24	Jardim das Palmeiras
+193	1	Altos do Coxipó
+194	1	Distrito da Guia
+195	1	Nossa Senhora da Guia
+196	25	Setor Sul I
+197	26	Cidade Nova
+198	26	São João
+199	11	Barra Funda
+200	11	Bom Retiro
+201	3	Loteamento Chácaras Pica-pau
+202	3	Jardim Residencial Porto Ferreira
+203	24	Bandeirantes
+204	24	Parque das Emas
+205	27	
+206	27	Estância Jussara

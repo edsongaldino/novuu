@@ -5,12 +5,28 @@ import { Observable } from 'rxjs';
 export interface Construtora {
   id?: number;
   nome: string;
-  nomeAbreviado: string;
-  cnpj: string;
-  acessoDomus: boolean;
+  nomeAbreviado?: string;
+  razaoSocial?: string;
+  cnpj?: string;
+  acessoDomus?: boolean;
   status?: string;
   createdAt?: string;
   updatedAt?: string;
+  logo?: string;
+  logoUrl?: string;
+  observacoes?: string;
+  tempoMercado?: string;
+  anoFundacao?: number;
+  mesFundacao?: number;
+  email?: string;
+  telefone?: string;
+  celularAtendimento?: string;
+  whatsapp?: string;
+  urlHotsite?: string;
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  youtube?: string;
 }
 
 @Injectable({

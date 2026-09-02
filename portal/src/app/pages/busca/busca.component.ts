@@ -205,9 +205,11 @@ export class BuscaComponent implements OnInit {
     let dormitorios = '3 quartos';
     let vagas = '2 vagas';
     
-    // Check logomarca and construct correct image url using our new static file server path
+    // Check cover image (imagemUrl) or logomarca
     let img = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80';
-    if (item.logomarca) {
+    if (item.imagemUrl) {
+      img = item.imagemUrl.startsWith('http') ? item.imagemUrl : `${environment.apiUrl}${item.imagemUrl}`;
+    } else if (item.logomarca) {
       if (item.logomarca.startsWith('data:')) {
         img = item.logomarca;
       } else if (item.logomarca.includes('/')) {
@@ -226,7 +228,7 @@ export class BuscaComponent implements OnInit {
       metragens = '120 a 145 m²';
       dormitorios = '3 quartos';
       vagas = '2 vagas';
-      if (!item.logomarca) img = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80';
+      if (!item.imagemUrl && !item.logomarca) img = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80';
       logo = 'PLAENGE';
       modalidade = 'Pronto';
     } else if (name.includes('bravie')) {
@@ -234,7 +236,7 @@ export class BuscaComponent implements OnInit {
       metragens = '105 a 125 m²';
       dormitorios = '2 a 3 quartos';
       vagas = '1 a 2 vagas';
-      if (!item.logomarca) img = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=80';
+      if (!item.imagemUrl && !item.logomarca) img = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=80';
       logo = 'PLAENGE';
       modalidade = 'Em Obras';
     } else if (name.includes('vox')) {
@@ -242,7 +244,7 @@ export class BuscaComponent implements OnInit {
       metragens = '121 a 122 m²';
       dormitorios = '2 a 3 quartos';
       vagas = '1 a 2 vagas';
-      if (!item.logomarca) img = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80';
+      if (!item.imagemUrl && !item.logomarca) img = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80';
       logo = 'PLAENGE';
       modalidade = 'Lançamento';
     } else if (name.includes('lagos') || name.includes('florais')) {
@@ -250,7 +252,7 @@ export class BuscaComponent implements OnInit {
       metragens = '200 a 680 m²';
       dormitorios = '3 a 4 suítes';
       vagas = '2 a 4 vagas';
-      if (!item.logomarca) img = 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80';
+      if (!item.imagemUrl && !item.logomarca) img = 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80';
       logo = 'GINCO';
       modalidade = 'Pronto';
     }
@@ -258,6 +260,13 @@ export class BuscaComponent implements OnInit {
     let percentualConcluido = null;
     if (modalidade === 'Em Obras') percentualConcluido = 62;
     if (modalidade === 'Pronto') percentualConcluido = 100;
+
+    let construtoraLogoUrl: string | null = null;
+    if (item.construtoraLogoUrl) {
+      construtoraLogoUrl = item.construtoraLogoUrl.startsWith('http')
+        ? item.construtoraLogoUrl
+        : `${environment.apiUrl}${item.construtoraLogoUrl}`;
+    }
 
     return {
       ...item,
@@ -268,6 +277,7 @@ export class BuscaComponent implements OnInit {
       vagas,
       imagemUrl: img,
       logoConstrutora: logo,
+      construtoraLogoUrl: construtoraLogoUrl || undefined,
       modalidade,
       wishlist: false,
       cidadeId,

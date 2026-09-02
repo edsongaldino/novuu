@@ -127,14 +127,18 @@
               <div class="card-info-section">
                 <div class="card-header-row">
                   <h3 class="card-title">{{ item.nome }}</h3>
-                  <div class="construtora-brand-logo">
-                    <span class="logo-txt" [class]="item.logoConstrutora.toLowerCase()">{{ item.logoConstrutora }}</span>
+                  <div class="construtora-brand-logo" style="height: 32px; display: flex; align-items: center; justify-content: flex-end;">
+                    @if (item.construtoraLogoUrl) {
+                      <img [src]="item.construtoraLogoUrl" [alt]="item.construtoraNome || item.logoConstrutora" style="max-height: 28px; max-width: 120px; object-fit: contain;" />
+                    } @else {
+                      <span class="logo-txt" [class]="(item.logoConstrutora || '').toLowerCase()">{{ item.construtoraNome || item.logoConstrutora }}</span>
+                    }
                   </div>
                 </div>
                 
                 <p class="card-location">
                   <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>{{ item.bairroName }}, {{ item.cidadeId === 1 ? 'Cuiabá' : 'Barra do Garças' }} - {{ item.uf }}</span>
+                  <span>{{ item.enderecoFormatado || (item.bairroNome ? (item.bairroNome + ', ' + item.cidadeNome + ' - ' + item.estadoUf) : (item.bairroName + ', ' + (item.cidadeId === 1 ? 'Cuiabá' : 'Barra do Garças') + ' - ' + item.uf)) }}</span>
                 </p>
 
                 <div class="card-specs-row">
@@ -145,44 +149,54 @@
                   <span>{{ item.vagas }}</span>
                 </div>
 
-                <div class="card-footer-grid">
-                  <div class="footer-col col-entrega">
-                    <span class="footer-lbl">Entrega</span>
-                    <span class="footer-val">{{ item.previsaoEntrega || 'Sob consulta' }}</span>
+                <div class="card-footer-section">
+                  <!-- Row 1: Entrega on left, Price on right -->
+                  <div class="card-footer-top-row">
+                    <div class="footer-col col-entrega">
+                      <span class="footer-lbl">Entrega</span>
+                      <span class="footer-val">{{ item.previsaoEntrega || 'Sob consulta' }}</span>
+                    </div>
+
+                    <div class="footer-col col-preco">
+                      <span class="price-lbl">A partir de</span>
+                      <span class="price-val">{{ item.valorInicial ? (item.valorInicial | currency:'BRL':'symbol':'1.0-0') : 'Sob consulta' }}</span>
+                    </div>
                   </div>
 
-                  <div class="footer-col col-progresso">
-                    @if (item.percentualConcluido !== null) {
-                      <div class="progress-circle-wrapper">
-                        <svg viewBox="0 0 36 36" class="circular-chart">
-                          <path class="circle-bg"
-                            d="M18 2.0845
-                              a 15.9155 15.9155 0 0 1 0 31.831
-                              a 15.9155 15.9155 0 0 1 0 -31.831"
-                          />
-                          <path class="circle"
-                            [attr.stroke-dasharray]="item.percentualConcluido + ', 100'"
-                            d="M18 2.0845
-                              a 15.9155 15.9155 0 0 1 0 31.831
-                              a 15.9155 15.9155 0 0 1 0 -31.831"
-                          />
-                        </svg>
-                        <div class="progress-text">
-                          <strong>{{ item.percentualConcluido }}%</strong> concluído
+                  <!-- Row 2: Progress on left, Action Button on right -->
+                  <div class="card-footer-bottom-row">
+                    <div class="footer-col col-progresso">
+                      @if (item.percentualConcluido !== null) {
+                        <div class="progress-circle-wrapper">
+                          <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                              d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path class="circle"
+                              [attr.stroke-dasharray]="item.percentualConcluido + ', 100'"
+                              d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                          </svg>
+                          <div class="progress-text">
+                            <strong>{{ item.percentualConcluido }}%</strong> concluído
+                          </div>
                         </div>
-                      </div>
-                    } @else {
-                      <div class="progress-circle-wrapper">
-                        <svg viewBox="0 0 36 36" class="circular-chart"><path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg>
-                        <div class="progress-text"><strong>-</strong></div>
-                      </div>
-                    }
-                  </div>
+                      } @else {
+                        <div class="progress-circle-wrapper">
+                          <svg viewBox="0 0 36 36" class="circular-chart"><path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg>
+                          <div class="progress-text"><strong>-</strong></div>
+                        </div>
+                      }
+                    </div>
 
-                  <div class="footer-col col-preco">
-                    <div class="price-lbl">A PARTIR DE</div>
-                    <div class="price-val">{{ item.valorInicial ? (item.valorInicial | currency:'BRL':'symbol':'1.0-0') : 'Sob consulta' }}</div>
-                    <a class="btn-ver-plantas">Ver plantas <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                    <a class="btn-ver-plantas">
+                      + Informações 
+                      <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
                   </div>
                 </div>
 

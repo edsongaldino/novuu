@@ -1,49 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 :root {
   /* Brand Colors - NOVUU */
-  --primary-color: #091b3d;        /* Dark Navy Blue */
-  --primary-light: #1e3a8a;
-  --primary-dark: #0f172a;
-  --secondary-color: #f1f5f9;      /* Platinum / Silver */
-  --secondary-light: #ffffff;
-  --secondary-dark: #cbd5e1;
-  --accent-color: #ff8c00;         /* Orange */
-  --accent-blue: #2169ff;          /* Bright Blue */
+  --primary-brand: #1d4ed8;       /* Primary Blue */
+  --primary-hover: #1e40af;
+  --sidebar-bg: #091224;          /* Dark Navy Blue Sidebar */
+  --sidebar-active: #1d4ed8;      /* Active Tab Blue Pill */
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --sidebar-text: #94a3b8;
+  --sidebar-text-active: #ffffff;
+  --sidebar-section-title: #64748b;
   
-  /* Neutral Colors */
-  --bg-color: #f3f4f6;             /* Gray 100 for admin background */
-  --surface-color: #ffffff;
-  --text-primary: #0A0A0A;         /* Rich Black for admin text */
-  --text-secondary: #525252;       /* Neutral 600 */
-  --text-muted: #a3a3a3;
-  --border-color: #e5e5e5;
+  /* Neutral Backgrounds & Cards */
+  --bg-main: #f4f6fa;
+  --surface-card: #ffffff;
+  --border-light: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  
+  /* Typography */
+  --text-main: #0f172a;
+  --text-sub: #475569;
+  --text-muted: #94a3b8;
   
   /* Status Colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  --badge-green-bg: #dcfce7;
+  --badge-green-text: #15803d;
+  --badge-blue-bg: #dbeafe;
+  --badge-blue-text: #1d4ed8;
+  --badge-orange-bg: #ffedd5;
+  --badge-orange-text: #c2410c;
+  --badge-red-bg: #fee2e2;
+  --badge-red-text: #b91c1c;
   
   /* Fonts */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -2px rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-hover: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-drawer: -4px 0 24px rgba(15, 23, 42, 0.15);
   
   /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-xxl: 3rem;
-  
-  /* Borders */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
   
   /* Transitions */
@@ -59,8 +61,8 @@
 
 body {
   font-family: var(--font-family);
-  background-color: var(--bg-color);
-  color: var(--text-primary);
+  background-color: var(--bg-main);
+  color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -79,7 +81,16 @@ button {
 
 input, select, textarea {
   font-family: var(--font-family);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-light);
   outline: none;
 }
 
+#p-license-host {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}

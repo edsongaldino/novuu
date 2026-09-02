@@ -2,7 +2,7 @@ const target = process.env.DOCKER_ENV === 'true' ? 'http://api:5135' : 'http://l
 
 module.exports = [
   {
-    context: ["/api"],
+    context: ["/api", "/uploads"],
     target: target,
     secure: false
   }

@@ -1,0 +1,28 @@
+﻿id	uf	nome
+1	MT	Mato Grosso
+2	MS	Mato Grosso do Sul
+4	DF	Distrito Federal
+6	RJ	Rio de Janeiro
+7	AM	Amazonas
+8	AC	Acre
+9	RR	Roraima
+10	RO	Rondonia
+11	AP	Amapá
+12	AL	Alagoas
+13	SC	Santa Catarina
+14	GO	Goiás
+15	SP	São Paulo
+16	CE	Ceará
+17	MG	Minas Gerais
+18	RN	Rio Grande do Norte
+19	MS	Mato Grosso do Sul
+20	ES	Espírito Santo
+21	PR	Paraná
+22	BA	Bahia
+23	PB	Paraíba
+24	PE	Pernambuco
+25	SE	Sergipe
+26	PI	Piauí
+27	MA	Maranhão
+28	TO	Tocantins
+29	PA	Pará

@@ -14,7 +14,7 @@ services:
   api:
     image: mcr.microsoft.com/dotnet/sdk:9.0
     container_name: novuu_api
-    working_dir: /app/src/LancamentosOnline.WebApi
+    working_dir: /app/src/Novuu.WebApi
     volumes:
       - ./api:/app
     ports:

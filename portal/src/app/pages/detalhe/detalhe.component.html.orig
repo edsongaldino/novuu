@@ -1,0 +1,563 @@
+@if (loading()) {
+  <div class="detail-loader">
+    <div class="spinner"></div>
+    <p>Carregando detalhes do empreendimento...</p>
+  </div>
+} @else if (error()) {
+  <div class="detail-error-container">
+    <svg viewBox="0 0 24 24" width="64" height="64" stroke="#ff4f4f" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+    <h2>Ops!</h2>
+    <p>{{ error() }}</p>
+    <a routerLink="/busca" class="back-to-list-btn">Voltar para a busca</a>
+  </div>
+} @else {
+  <!-- HERO SECTION (Full Viewport Width Layout) -->
+  <div class="detail-hero-section" style="position: relative; width: 100%; height: 650px; overflow: hidden; margin-bottom: var(--spacing-xl); box-shadow: var(--shadow-md);">
+    
+    <!-- Background Image -->
+    <img [src]="galleryImages()[activeImageIndex()]" [alt]="empreendimento()?.nome" 
+         style="width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);" 
+         (click)="openLightboxForGallery(activeImageIndex())"
+         (mouseover)="$event.target['style'].transform = 'scale(1.02)'"
+         (mouseleave)="$event.target['style'].transform = 'scale(1)'" />
+         
+    <!-- Gradient Overlays for Readability -->
+    <div class="hero-overlay-top" style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 30%); pointer-events: none; z-index: 5;"></div>
+    <div class="hero-overlay-bottom" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 40%); pointer-events: none; z-index: 5;"></div>
+    
+    <!-- Hero Inner Container (for alignment with max-width 1600px / 90%) -->
+    <div class="hero-inner-container" style="position: absolute; inset: 0; max-width: 1600px; width: 90%; margin: 0 auto; pointer-events: none; z-index: 10;">
+
+      <!-- TOP LEFT: Header Info (Breadcrumbs, Title, Address, Badge) -->
+      <div class="hero-top-left" style="position: absolute; top: var(--spacing-xl); left: 0; color: white; pointer-events: auto; display: flex; flex-direction: column; align-items: flex-start;">
+        <nav class="breadcrumbs" style="color: rgba(255,255,255,0.7); margin-bottom: var(--spacing-sm);">
+          <a routerLink="/" style="color: white; text-decoration: none;">Home</a>
+          <span class="separator" style="color: rgba(255,255,255,0.5); margin: 0 8px;">/</span>
+          <a routerLink="/busca" style="color: white; text-decoration: none;">Empreendimentos</a>
+          <span class="separator" style="color: rgba(255,255,255,0.5); margin: 0 8px;">/</span>
+          <span class="current" style="color: rgba(255,255,255,0.9);">{{ empreendimento()?.nome }}</span>
+        </nav>
+        
+        <h1 class="detail-title" style="font-size: 2.8rem; font-weight: 800; color: white; margin: 0 0 var(--spacing-xs) 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+          {{ empreendimento()?.nome }}
+        </h1>
+        
+        <p class="detail-address" style="font-size: 1rem; color: rgba(255,255,255,0.9); margin: 0 0 var(--spacing-md) 0; display: flex; align-items: center; gap: 6px;">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span>{{ address() }}</span>
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <span class="badge status-badge" style="display: inline-block; background-color: var(--secondary-color); color: white; padding: 6px 14px; font-weight: 700; border-radius: var(--radius-sm); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; box-shadow: 0 2px 5px rgba(0,0,0,0.2); width: fit-content;">
+            {{ empreendimento()?.status || 'Lançamento' }}
+          </span>
+          @if (empreendimento()?.construtora?.nomeAbreviado) {
+            <span class="badge" style="display: inline-block; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: var(--radius-sm); font-weight: 800; font-size: 0.8rem; color: white; border-left: 3px solid var(--secondary-color); border-top: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); text-transform: uppercase; letter-spacing: 0.05em; width: fit-content;">
+              {{ empreendimento()?.construtora?.nomeAbreviado }}
+            </span>
+          }
+        </div>
+      </div>
+
+      <!-- RIGHT CENTER: Floating Action Sidebar Card (Dark Theme) -->
+      <div class="hero-floating-sidebar" style="position: absolute; top: var(--spacing-xl); right: 0; background-color: rgba(30, 30, 30, 0.45); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: white; border-radius: var(--radius-lg); padding: var(--spacing-xl); width: 360px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); display: flex; flex-direction: column; gap: var(--spacing-md); border: 1px solid rgba(255,255,255,0.08); pointer-events: auto;">
+        
+        <div class="action-price-box">
+          <span class="price-lbl" style="font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">A partir de</span>
+          @if (empreendimento()?.valorInicial && empreendimento()?.valorInicial > 0) {
+            <h2 class="price-val" style="color: white; font-size: 2.2rem; font-weight: 800; margin: 0 0 8px 0; line-height: 1.1; font-family: 'Outfit', sans-serif;">
+              {{ empreendimento()?.valorInicial | currency:'BRL':'symbol':'1.0-0' }}
+            </h2>
+          } @else {
+            <h2 class="price-val" style="color: white; font-size: 2rem; font-weight: 800; margin: 0 0 8px 0; line-height: 1.1; font-family: 'Outfit', sans-serif;">
+              Sob consulta
+            </h2>
+          }
+          <p class="action-location-desc" style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin: 0 0 6px 0; display: flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>{{ address() }}</span>
+          </p>
+        </div>
+
+        <!-- Quick Specs List -->
+        <div class="action-quick-specs" style="display: flex; flex-direction: column; gap: 14px; padding: var(--spacing-md) 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div class="quick-spec-item" style="display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 500;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" style="color: rgba(255,255,255,0.5);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>{{ metragens() }}</span>
+          </div>
+          <div class="quick-spec-item" style="display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 500;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" style="color: rgba(255,255,255,0.5);"><path d="M3 11V9a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v2"></path><path d="M12 5v14"></path><path d="M3 18v-7h18v7"></path></svg>
+            <span>{{ dormitorios() }}</span>
+          </div>
+          <div class="quick-spec-item" style="display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 500;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" style="color: rgba(255,255,255,0.5);"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            <span>{{ vagas() }}</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+          <button (click)="scrollToForm()" class="submit-contact-btn hero-main-btn" style="background-color: var(--secondary-color); color: white; width: 100%; border: none; padding: 14px; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; font-size: 1rem; text-align: center; transition: all 0.2s ease;">
+            Quero mais informações
+          </button>
+          
+          <div class="action-btns-row" style="display: flex; gap: var(--spacing-sm);">
+            <button class="action-btn share" (click)="shareLink()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); padding: 10px; border-radius: var(--radius-md); cursor: pointer; color: white; font-weight: 600; font-size: 0.9rem; transition: background-color 0.2s ease;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.03)'">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              <span>Compartilhar</span>
+            </button>
+            <button class="action-btn favorite" style="border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; color: white; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s ease;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.03)'">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM LEFT: Thumbnails with glassmorphism (New Design) -->
+      <div class="hero-thumbnails-container" style="position: absolute; bottom: var(--spacing-xl); left: 0; display: flex; flex-direction: column; gap: 12px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 12px; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.1); max-width: calc(100% - 420px); pointer-events: auto;">
+        
+        <div class="gallery-thumbnails" style="display: flex; gap: 8px;">
+          @for (img of visibleThumbs(); track img; let i = $index) {
+            <button class="thumb-btn hero-thumb" [class.active]="activeImageIndex() === (thumbStartIndex() + i)" (click)="selectImage(thumbStartIndex() + i)" style="position: relative; flex: 0 0 90px; width: 90px; height: 64px; border-radius: var(--radius-md); overflow: hidden; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease; padding: 0; background: none;" [style.border-color]="activeImageIndex() === (thumbStartIndex() + i) ? 'var(--secondary-color)' : 'transparent'">
+              <img [src]="img" [alt]="empreendimento()?.nome" style="width: 100%; height: 100%; object-fit: cover;" />
+              
+              <!-- 5th Image Overlay (+X fotos) on the LAST thumbnail if there are more photos -->
+              @if (i === 4 && galleryImages().length > thumbStartIndex() + 5) {
+                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.65); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white;" (click)="openLightboxForGallery(thumbStartIndex() + i); $event.stopPropagation();">
+                  <span style="font-weight: 800; font-size: 1rem;">+{{ galleryImages().length - (thumbStartIndex() + 5) }}</span>
+                  <span style="font-size: 0.75rem;">fotos</span>
+                </div>
+              }
+            </button>
+          }
+        </div>
+
+        <!-- Thumb Indicators (Dots/Lines) -->
+        <div class="thumb-indicators" style="display: flex; gap: 4px; justify-content: center; width: 100%; padding: 0 8px;">
+          @for (page of pageArray(); track page) {
+            <div style="height: 3px; flex: 1; border-radius: 2px; transition: background-color 0.2s ease;" [style.background-color]="(thumbStartIndex() / 5) === page ? 'var(--secondary-color)' : 'rgba(255,255,255,0.2)'"></div>
+          }
+        </div>
+
+      </div>
+
+    </div> <!-- End inner container -->
+
+    <!-- MAIN LEFT/RIGHT ARROWS FOR HERO (Positioned relative to viewport edges) -->
+    <button class="slider-arrow-btn hero-nav prev" (click)="prevImage($event)" style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: none; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(255,255,255,0.15); pointer-events: auto; z-index: 20;" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'" onmouseout="this.style.backgroundColor='rgba(0,0,0,0.3)'">
+      <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    
+    <button class="slider-arrow-btn hero-nav next" (click)="nextImage($event)" style="position: absolute; right: 40px; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: none; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(255,255,255,0.15); pointer-events: auto; z-index: 20;" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.6)'" onmouseout="this.style.backgroundColor='rgba(0,0,0,0.3)'">
+      <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+  </div>
+  
+  <div class="development-detail-page">
+
+    <!-- Tabs Bar (Full Width under gallery section) -->
+    <nav class="detail-tabs" style="margin-bottom: var(--spacing-lg); border-bottom: 2px solid var(--border-color); display: flex; gap: var(--spacing-lg); overflow-x: auto; padding-bottom: 2px;">
+      <button [class.active]="activeTab() === 'sobre'" (click)="setTab('sobre')" style="background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; padding: var(--spacing-sm) 0; position: relative; transition: color var(--transition-fast); white-space: nowrap;">Sobre o empreendimento</button>
+      <button [class.active]="activeTab() === 'unidades'" (click)="setTab('unidades')" style="background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; padding: var(--spacing-sm) 0; position: relative; transition: color var(--transition-fast); white-space: nowrap;">Unidades</button>
+      <button [class.active]="activeTab() === 'diferenciais'" (click)="setTab('diferenciais')" style="background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; padding: var(--spacing-sm) 0; position: relative; transition: color var(--transition-fast); white-space: nowrap;">Diferenciais</button>
+
+      <button [class.active]="activeTab() === 'construtora'" (click)="setTab('construtora')" style="background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; padding: var(--spacing-sm) 0; position: relative; transition: color var(--transition-fast); white-space: nowrap;">Construtora</button>
+    </nav>
+
+    <!-- Main Content Layout Grid (Bottom Section) -->
+    <div class="detail-layout-grid" style="display: grid; grid-template-columns: 2.3fr 1fr; gap: var(--spacing-lg);">
+      <!-- Left Column: Active Tab Content -->
+      <div class="detail-left-column" style="margin: 0; padding: 0;">
+        <!-- Tab Contents -->
+        <div class="tab-content-container" style="background-color: transparent; border: none; padding: 0; box-shadow: none;">
+          <!-- 1. Sobre -->
+          @if (activeTab() === 'sobre') {
+            <section class="tab-section about-section">
+              <h2 class="section-title">Sobre o empreendimento</h2>
+              <div class="about-text" [innerHTML]="empreendimento()?.descricao"></div>
+
+              <h3 class="section-subtitle">Áreas de Lazer e Conveniência</h3>
+              <div class="amenities-summary-grid">
+                @for (dif of diferenciais().slice(0, 6); track dif.titulo) {
+                  <div class="amenity-summary-card">
+                    <span class="amenity-icon">✓</span>
+                    <span class="amenity-title">{{ dif.titulo }}</span>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- 2. Unidades -->
+          @if (activeTab() === 'unidades') {
+            <section class="tab-section units-section">
+              <h2 class="section-title">Unidades disponíveis</h2>
+              <p class="section-desc">Consulte as unidades e lotes cadastrados e sua situação comercial atualizada:</p>
+
+              <!-- Simple search bar by Torre/Quadra and Situacao -->
+              <div class="units-filter-bar" style="display: flex; gap: var(--spacing-md); margin-bottom: var(--spacing-lg); flex-wrap: wrap; background: #f8f9fa; padding: var(--spacing-md); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 6px;">
+                  <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Torre / Quadra</label>
+                  <input type="text" [value]="filterTorre()" (input)="filterTorre.set($any($event.target).value)" placeholder="Buscar por torre ou quadra..." style="padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.9rem;" />
+                </div>
+                <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 6px;">
+                  <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Situação</label>
+                  <select [value]="filterSituacao()" (change)="filterSituacao.set($any($event.target).value)" style="padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.9rem; background: white;">
+                    <option value="">Todas as Situações</option>
+                    @for (sit of getUniqueSituations(); track sit) {
+                      <option [value]="sit">{{ sit }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <div class="units-table-container">
+                <table class="units-table">
+                  <thead>
+                    <tr>
+                      <th>Identificação</th>
+                      <th>Torre / Quadra</th>
+                      <th>Situação</th>
+                      <th>Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (unit of getFlatUnits(); track unit.id) {
+                      <tr>
+                        <td class="unit-num">{{ unit.nome }}</td>
+                        <td>{{ unit.torreNome }}</td>
+                        <td>
+                          <span class="sit-badge" 
+                                [style.background-color]="getSituacaoColor(unit.situacao).bg" 
+                                [style.color]="getSituacaoColor(unit.situacao).text"
+                                style="display: inline-block; padding: 6px 12px; font-size: 0.75rem; font-weight: 700; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.03em;">
+                            {{ unit.situacao }}
+                          </span>
+                        </td>
+                        <td style="font-weight: 600; color: var(--text-primary);">
+                          @if (unit.valor && unit.valor > 0) {
+                            {{ unit.valor | currency:'BRL':'symbol':'1.0-0' }}
+                          } @else {
+                            <span style="color: var(--text-secondary); font-style: italic; font-weight: normal;">Consulte</span>
+                          }
+                        </td>
+                      </tr>
+                    } @empty {
+                      <tr>
+                        <td colspan="4" class="empty-table-cell" style="text-align: center; padding: var(--spacing-xl); color: var(--text-secondary);">Nenhuma unidade encontrada para os filtros aplicados.</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          }
+
+
+          <!-- 4. Diferenciais -->
+          @if (activeTab() === 'diferenciais') {
+            <section class="tab-section features-section">
+              <h2 class="section-title">Diferenciais do Projeto</h2>
+              <p class="section-desc">O empreendimento foi planejado nos mínimos detalhes para oferecer máxima qualidade de vida:</p>
+
+              <div class="features-grid">
+                @for (dif of diferenciais(); track dif.titulo) {
+                  <div class="feature-card">
+                    <div class="feature-header">
+                      <div class="feature-icon-wrapper">
+                        <!-- Generic Icon -->
+                        <span class="icon-star">★</span>
+                      </div>
+                      <h3 class="feature-title">{{ dif.titulo }}</h3>
+                    </div>
+                    <p class="feature-desc">{{ dif.descricao }}</p>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+
+
+          <!-- 6. Construtora -->
+          @if (activeTab() === 'construtora') {
+            <section class="tab-section builder-section">
+              <div class="builder-intro-row">
+                <div class="builder-logo-large">
+                  <span>{{ empreendimento()?.construtora?.nomeAbreviado }}</span>
+                </div>
+                <div class="builder-intro-text">
+                  <h2 class="builder-name">{{ empreendimento()?.construtora?.nome }}</h2>
+                  <p class="builder-cnpj"><strong>CNPJ:</strong> {{ empreendimento()?.construtora?.cnpj }}</p>
+                </div>
+              </div>
+              <div class="builder-description">
+                <p>Referência em qualidade de acabamento, cumprimento rigoroso de prazos e inovação arquitetônica. Atua há anos gerando valor e realizando sonhos com empreendimentos verticais e horizontais de altíssimo padrão, focando na satisfação e no conforto de seus clientes.</p>
+              </div>
+            </section>
+          }
+        </div>
+
+        <!-- ===== PLANS & CONFIGURATIONS SECTION (Inside Left Column, Outside Tabs) ===== -->
+        @if (plantasDaDatabase().length > 0) {
+          <section class="plans-section-block" style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid var(--border-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+              <div>
+                <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--primary-color); margin: 0 0 4px 0; border-left: 4px solid var(--secondary-color); padding-left: 12px; text-transform: uppercase; letter-spacing: 0.04em;">
+                  Plantas
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">
+                  Plantas disponíveis para este empreendimento.
+                </p>
+              </div>
+              
+              <!-- Slider arrows (Top Right) -->
+              <div style="display: flex; gap: 8px;">
+                <button (click)="plansScroll.scrollLeft = plansScroll.scrollLeft - 340" style="width: 40px; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.backgroundColor='#f1f1f1'" onmouseout="this.style.backgroundColor='white'">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button (click)="plansScroll.scrollLeft = plansScroll.scrollLeft + 340" style="width: 40px; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: #0b2545; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.backgroundColor='#134074'" onmouseout="this.style.backgroundColor='#0b2545'">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Outer container prevents page layout from expanding -->
+            <div style="width: 100%; overflow: hidden;">
+              <!-- Horizontal Scrollable Cards List -->
+              <div #plansScroll style="display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding: 10px 4px; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;">
+                @for (planta of plantasDaDatabase(); track planta.nome; let idx = $index) {
+                  <div class="plan-card-modern" style="flex: 0 0 300px; width: 300px; border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; background: white; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+                    
+                    <!-- Card Header (icon + letter) -->
+                    <div style="padding: 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f1f1f1;">
+                      <div style="width: 32px; height: 32px; border-radius: var(--radius-sm); background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center;">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+                      </div>
+                      <span style="font-weight: 800; font-size: 1.1rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+                        {{ getPlantaLabel(planta.nome, idx) }}
+                      </span>
+                    </div>
+
+                    <!-- Plan Image (contain and zoom on click) -->
+                    <div style="height: 180px; overflow: hidden; background: #fafafa; border-bottom: 1px solid #f1f1f1; display: flex; align-items: center; justify-content: center; padding: 12px; cursor: zoom-in;" (click)="openLightboxForGallery(getActivePhotoIndex(planta.imagemUrl))">
+                      <img [src]="planta.imagemUrl" [alt]="planta.nome" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+                    </div>
+
+                    <!-- Card Info -->
+                    <div style="padding: 16px; flex-grow: 1; display: flex; flex-direction: column; gap: 4px; min-height: 90px;">
+                      <span style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Apartamento</span>
+                      <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin: 0; line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ planta.nome }}</h4>
+                      <span style="font-size: 0.85rem; color: #0284c7; font-weight: 700;">Opção com {{ planta.area }}m²</span>
+                    </div>
+
+                    <!-- Card Footer specs -->
+                    <div style="padding: 12px 16px; background: #fafafa; border-top: 1px solid #f1f1f1; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                      <div style="display: flex; gap: 12px; font-size: 0.8rem; color: var(--text-secondary);">
+                        <span style="display: flex; align-items: center; gap: 4px;">
+                          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                          <strong>{{ planta.area }} m²</strong>
+                        </span>
+                        <span style="display: flex; align-items: center; gap: 4px;">
+                          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M3 11V9a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v2"></path><path d="M12 5v14"></path><path d="M3 18v-7h18v7"></path></svg>
+                          <strong>{{ planta.quartos }} dorms</strong>
+                        </span>
+                      </div>
+                      <button (click)="openLightboxForGallery(getActivePhotoIndex(planta.imagemUrl))" style="width: 32px; height: 32px; border-radius: var(--radius-sm); border: none; background: #0b2545; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#134074'" onmouseout="this.style.backgroundColor='#0b2545'">
+                        <strong style="font-size: 1.1rem; line-height: 1;">+</strong>
+                      </button>
+                    </div>
+
+                  </div>
+                }
+              </div>
+            </div>
+          </section>
+        }
+
+        <!-- ===== LOCATION SECTION ===== -->
+        <app-proximity-map
+          [address]="address()"
+          [lat]="empreendimento()?.latitude"
+          [lng]="empreendimento()?.longitude"
+          style="display:block; margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid var(--border-color);">
+        </app-proximity-map>
+
+        <!-- Distance highlights -->
+        @if (localizacaoDestaques().length > 0) {
+          <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-md); margin-top: var(--spacing-lg);">
+            @for (dest of localizacaoDestaques(); track dest) {
+              <div style="display: flex; align-items: center; gap: 8px; background-color: var(--bg-secondary); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 100px; font-size: 0.88rem; color: var(--text-secondary);">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" style="color: var(--secondary-color);"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>{{ dest }}</span>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- ===== PHOTO GALLERY SECTION (Inside Left Column) ===== -->
+        @if (categorizedPhotos().length > 0) {
+          <section class="photo-gallery-section" style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid var(--border-color);">
+            <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--primary-color); margin: 0 0 var(--spacing-md) 0; text-transform: uppercase; letter-spacing: 0.04em; border-left: 4px solid var(--secondary-color); padding-left: 12px;">
+              Mais imagens do empreendimento
+            </h2>
+
+            <!-- Category Filter Buttons -->
+            <div class="photo-filter-tabs" style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg);">
+              <button
+                (click)="setPhotoFilter('Todas as Fotos')"
+                [style.background-color]="activePhotoFilter() === 'Todas as Fotos' ? 'var(--primary-color)' : 'var(--bg-secondary)'"
+                [style.color]="activePhotoFilter() === 'Todas as Fotos' ? 'white' : 'var(--text-primary)'"
+                [style.border]="activePhotoFilter() === 'Todas as Fotos' ? '1px solid var(--primary-color)' : '1px solid var(--border-color)'"
+                style="padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all var(--transition-fast);">
+                Todas as Fotos
+              </button>
+              @for (tipo of availablePhotoTypes(); track tipo) {
+                <button
+                  (click)="setPhotoFilter(tipo)"
+                  [style.background-color]="activePhotoFilter() === tipo ? 'var(--primary-color)' : 'var(--bg-secondary)'"
+                  [style.color]="activePhotoFilter() === tipo ? 'white' : 'var(--text-primary)'"
+                  [style.border]="activePhotoFilter() === tipo ? '1px solid var(--primary-color)' : '1px solid var(--border-color)'"
+                  style="padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all var(--transition-fast);">
+                  {{ tipo }}
+                </button>
+              }
+            </div>
+
+            <!-- Photo Grid (Masonry-style) -->
+            <div class="photo-masonry-grid" style="columns: 3; column-gap: 8px;">
+              @for (photo of filteredPhotos(); track photo.url; let i = $index) {
+                <div style="break-inside: avoid; margin-bottom: 8px; cursor: pointer; overflow: hidden; border-radius: 6px; position: relative; background-color: var(--bg-secondary);"
+                     (click)="openLightbox(i)">
+                  <img [src]="photo.url" [alt]="photo.tipo"
+                       style="width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.3s ease;"
+                       loading="lazy"
+                       (mouseover)="$event.target['style'].transform = 'scale(1.04)'"
+                       (mouseleave)="$event.target['style'].transform = 'scale(1)'" />
+                </div>
+              }
+            </div>
+          </section>
+        }
+      </div>
+
+      <!-- Right Column: Specs & Form -->
+      <aside class="detail-right-column">
+        <!-- Technical Specs Card -->
+        <div class="sidebar-card specs-card">
+          <h3 class="sidebar-card-title">Ficha técnica</h3>
+          
+          <table class="specs-table">
+            <tbody>
+              <tr>
+                <td class="spec-label">Tipo de empreendimento</td>
+                <td class="spec-value">{{ empreendimento()?.tipo }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Status</td>
+                <td class="spec-value">{{ empreendimento()?.status }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Previsão de entrega</td>
+                <td class="spec-value">{{ empreendimento()?.previsaoEntrega }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Área do terreno</td>
+                <td class="spec-value">{{ areaTerreno() }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Número de torres</td>
+                <td class="spec-value">{{ empreendimento()?.qtdeTorre }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Total de unidades</td>
+                <td class="spec-value">{{ qtdeUnidades() }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Metragens</td>
+                <td class="spec-value">{{ metragens() }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Dormitórios</td>
+                <td class="spec-value">{{ dormitorios() }}</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Vagas de garagem</td>
+                <td class="spec-value">{{ vagas() }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Lead Interest Contact Form -->
+        <div id="contact-form-sidebar" class="sidebar-card contact-card">
+          <h3 class="sidebar-card-title">Tenho interesse</h3>
+          <p class="contact-desc">Preencha o formulário abaixo para receber fotos, tabelas de preço e detalhes exclusivos:</p>
+          
+          @if (formSubmitted()) {
+            <div class="form-success-alert">
+              <svg viewBox="0 0 24 24" width="32" height="32" stroke="#22c55e" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <h4>Solicitação recebida!</h4>
+              <p>Em breve um consultor da construtora entrará em contato com você.</p>
+              <button class="send-another-btn" (click)="formSubmitted.set(false)">Enviar nova mensagem</button>
+            </div>
+          } @else {
+            <form class="contact-form" (submit)="submitInterest($event)">
+              <div class="form-group">
+                <label for="contact-name">Nome completo *</label>
+                <input type="text" id="contact-name" [(ngModel)]="clientNome" name="cname" placeholder="Digite seu nome completo" required />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-phone">Telefone *</label>
+                <input type="tel" id="contact-phone" [(ngModel)]="clientTelefone" name="cphone" placeholder="(65) 99999-9999" required />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-email">E-mail *</label>
+                <input type="email" id="contact-email" [(ngModel)]="clientEmail" name="cemail" placeholder="seuemail@exemplo.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-previsao">Qual a sua previsão de compra?</label>
+                <select id="contact-previsao" [(ngModel)]="clientPrevisao" name="cprevisao">
+                  <option value="Imediata">Imediata (Menos de 3 meses)</option>
+                  <option value="Medio Prazo">Médio Prazo (3 a 6 meses)</option>
+                  <option value="Futuro">Futuro (Mais de 6 meses)</option>
+                  <option value="Apenas Pesquisa">Estou apenas pesquisando</option>
+                </select>
+              </div>
+
+              <button type="submit" class="submit-contact-btn" [disabled]="submitting()">
+                {{ submitting() ? 'Enviando...' : 'Receber informações' }}
+              </button>
+            </form>
+          }
+        </div>
+      </aside>
+    </div>
+
+    <!-- Lightbox Overlay -->
+    @if (lightboxOpen()) {
+      <div class="lightbox-overlay" (click)="closeLightbox()"
+           style="position: fixed; inset: 0; background-color: rgba(0,0,0,0.92); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <button (click)="prevLightbox($event)"
+                style="position: absolute; left: 24px; background: rgba(255,255,255,0.15); border: none; border-radius: 50%; width: 52px; height: 52px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; z-index: 10000;">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <img [src]="lightboxMode() === 'gallery' ? galleryImages()[lightboxIndex()] : filteredPhotos()[lightboxIndex()]?.url" style="max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 8px;" (click)="$event.stopPropagation()" />
+        <button (click)="nextLightbox($event)"
+                style="position: absolute; right: 24px; background: rgba(255,255,255,0.15); border: none; border-radius: 50%; width: 52px; height: 52px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; z-index: 10000;">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <button (click)="closeLightbox()"
+                style="position: absolute; top: 24px; right: 24px; background: rgba(255,255,255,0.15); border: none; border-radius: 50%; width: 44px; height: 44px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; z-index: 10000;">✕</button>
+        <div style="position: absolute; bottom: 24px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+          {{ lightboxIndex() + 1 }} / {{ lightboxMode() === 'gallery' ? galleryImages().length : filteredPhotos().length }}
+        </div>
+      </div>
+    }
+
+  </div>
+}

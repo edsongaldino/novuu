@@ -1,0 +1,430 @@
+﻿id	estado_id	cidade_id	bairro_id	IFNULL(cep, '')	IFNULL(logradouro, '')	IFNULL(complemento, '')	IFNULL(numero, '')	IFNULL(latitude, '')	IFNULL(longitude, '')
+1	1	1	53	78050-568	Avenida Oátomo Canavarros		1077		
+2	1	1	2	78043-315	avenida miguel sutil	Duque de Caxias	8575		
+3	1	1	8		Avenida Historiador Rubens de Mendonça		1731		
+4	1	1	3		Avenida Brasília		210		
+5	1	1	7	78048-000	Avenida Miguel Sutil		6344		
+6	1	1	38		Av. Miguel Sutil, em frente ao Parque Mãe Bonifácia		6344		
+7	1	1	5		Av. Jose Monteiro de Figueiredo, Duque de Caxias	Master Center, 6º andar	714		
+8	1	1	5		Rua Barão de Melgaço	Edificio Work Tower, loja térrea	2754		
+9	1	1	2		Avenida Miguel Sutil		8575		
+10	15	11	117		Av. Paulista, 1.294, 13º andar	13° andar	1294		
+11	1	1	5		Rua Coronel Neto		305		
+12	1	1	12		Avenida Rui Barbosa		445		
+13	1	1	6	78-020-450	Av. Tenente Coronel Duarte, Centro, Cuiabá - MT		2057 B		
+14	1	1	7		Avenida Historiador Rubens de Mendonça	Sala 1702 a 1704	1894		
+15	1	1	8		Rua Doutor Paulo Epaminondas		68		
+16	1	1	15		Avenida Beira Rio		180		
+17	1	1	8	78048-450	Rua Oriente Tenuta	(Lot Consil)	440		
+18	1	1	3		Piso: America do Norte, Avenida Brasilia		146		
+19	1	1	11		Rua Américo Salgado		1017		
+20	1	1	6		Travessa Léo Edilberto Griggi		625		
+21	1	1	3		Rua Manoel da Costa Granja	Sala 102,	452		
+22	1	1	7		Avenida Historiador Rubens de Mendonça	Sala 1702 a 1704	1894		
+23	1	1	56		Rua Leonides de Carvalho		15		
+24	1	1	56		Avenida Historiador Rubens de Mendonça	Salas 1907 a 1909	1894		
+25	1	1	79		Av. República do Líbano	Lt. B-4	1055		
+26	1	1	16		Rua João Bento		732		
+27	1	1	5		Rua Barão de Melgaço		2290		
+28	1	1	68		Avenida República do Libano		2255		
+29	1	1	35		Rua Presidente Afonso		27		
+30	1	1	9		Avenida Historiador Rubens de Mendonça	1309	1731		
+31	1	1	173	78075-860	Rua das Gralhas	QUADRA11 LOTE 07	20		
+32	1	1	4	78050-030	Avenida Hisotriador Rubens de Mendonça		2554		
+33	1	1	26		Rua Dr. Santo Scaravelli		637		
+34	1	1	20		Rua Montes Claros		52		
+35	1	1	8		Não informado		SN		
+36	1	1	35		Rua Américo Salgado		727		
+37	1	1	155	78080-070	Rua Nossa Senhora da Guia		312/314		
+38	1	1	68		Av. República do Líbano		2255		
+39	1	1	3		AVENIDA BRASÍLIA,	ESQ. COM RUA LA PAZ	SN		
+40	1	1	8		teste	teste	teste		
+41	1	1	21		Avenida Isaac Póvoas	401	1177		
+42	1	1	44		Avenida Oátomo Canavarros		1077		
+43	1	1	16	78043-409	Avenida Senador Filinto Müller		1748		
+44	15	11	162	04544-051	Rua Ministro Jesuíno Cardoso	10° andar - sala 102	633		
+45	1	1	36		Av. Antártica	CEP: 78040-500	1840		
+46	1	1	2	78043-375	Avenida Miguel Sutil	de 6061 a 8343 - lado ímpar	8061		
+47	1	1	37		Rua dos lírios	37	205		
+48	1	1	21		Avenida Isaac Póvoa	1001	1177		
+49	1	1	21		Rua 12 de Outubro		228		
+50	1	1	60		Rua Torino, Quadra: 07, Lote: 45	CEP 78060-830	155		
+51	13	5	102		Rua 1101, Sala 71, Andar 7º, Edifício Camboriú Business Center		nº 60		
+52	1	1	73		Rua Gregório de Matos Guerra	Sala 01	nº 190		
+53	1	1	26	78048-005	Rua Mistral	salas 503 e 504	09		
+54	1	7	106		Avenida São João, Sala 01, Centro		305		
+55	13	5	107		Edifício Dolce Vitta, Avenida Brasil, 2260		2260		
+56	1	NULL	NULL		Não informado		SN		
+57	14	8	109		Avenida 136, Edifício New York Square	16 andar	797		
+58	13	5	107		Avenida Brasil, 3223, Esquina com rua 3300		SN		
+59	13	10	111		Rua Koesa		142		
+60	13	5	112		Avenida do Estado, Casa Hall Shopping	Loja 29	4770		
+61	13	9	113		rua 294		294		
+62	15	11	114		R Hungria	3° andar	1400		
+63	1	2	120	78110-002	Av. Tiradentes	Chapéu do Sol	1		
+64	1	13	168	78840-000	Avenida Santa Maria	Central de Vendas Buritis Prime, bairro residencial Buritis	1099		
+65	13	14	119		Rua Raynerio Krieger esquina com rua José Roberto Otto		182		
+66	1	15	121		AV ROTARY INTERNACIONAL	sala 3	670		
+67	14	8	129		Avenida T-63, Edifício New World Concept	6° andar	1296		
+68	1	1	56		Av. Historiador Rubens de Mendonça	Salas 201-203	2368		
+69	17	16	130		Rua Urucânia		597		
+70	1	1	1		Avenida Santo Antonio		178	-15.625764580802172	-56.05943977832794
+71	1	1	2		Rua Cursino do Amarante			-0	-0
+72	1	1	2		Rua Cursino do Amaral		Não inform	-15.58485486556234	-56.1086905002594
+73	1	1	17		Avenida Senador Filinto Miller, esquina com a Rua Américo Salgado		Não inform	-15.582266088171223	-56.10122859477997
+74	1	1	2		Rua João Bento		Não inform	-15.584630080385526	-56.11038689942853
+75	1	1	44		Avenida Brasil		269	-15.567311514230823	-56.05671465396881
+76	1	1	18		Avenida da Antarctica		Não inform	-15.583263365560002	-56.11782610416412
+77	1	1	38		Rua Nossa Senhora da Santa Marta, proximo ao Parque Mãe Bonifácia		Não inform	-15.574365206604257	-56.104785203933716
+78	1	1	56		Atrás da Avenida do CPA, Shopping Pantanal, Entrada do Terra Nova		Não inform	-15.584017779435804	-56.077609062194824
+79	1	1	4	78050-242	Avenida F		Não inform	-15.583612689786657	-56.07695922897491
+80	1	1	158	78005-235	Rua Corsino do Amarante		72	-15.590923080951308	-56.098231264561086
+81	1	1	63		Avenida Tancredo Neves (antiga escolinha do gaucho de futebol)		Não inform	-15.614564045414468	-56.07525944709778
+82	1	1	2		Rua General Zenóbio da Costa		Não inform	-15.5868287218121	-56.11088991165161
+83	1	1	3		Rua Buenos Aires		Não inform	-15.607124237163757	-56.077061891555786
+84	1	1	3		Avenida Haiti		Não inform	-15.610864841162596	-56.07541769742966
+85	1	1	4		Avenida do CPA, Contorno Leste		Não inform	-15.578085738053268	-56.067599058151245
+86	1	1	56		Avenida do CPA, Contorno Leste		Não inform	-15.57703159431369	-56.068360805511475
+87	1	1	77		Avenida Beira Rio		Não inform	-15.626678988623517	-56.082297563552856
+88	1	1	6		Rua Coronel Barros, esquina com a Avenida Ipiranga		Não inform	-15.598247779563937	-56.107016801834106
+89	1	1	34		Avenida José Feliciano de Figueiredo, entre a Avenida Ipiranga e a Comandante Costa		200	-15.607555650083288	-56.11232489347458
+90	1	1	34		Rua José Feliciano de Figueiredo		83	-15.607981895489841	-56.113078594207764
+91	1	1	34		Avenida José Feliciano de Figueiredo		84	-15.608446889468524	-56.11287474632263
+92	1	1	54		Rua Pedro Fernandes		Não inform	-15.62169360831403	-56.06167674064636
+93	1	1	78		Rua das Brisas		Não inform	-15.567208161628221	-56.089319586753845
+94	1	1	3		Avenida Arquimedes Pereira Lima		Não inform	-15.601482202647354	-56.069862842559814
+95	1	1	9		Rua C		Não inform	-15.589249511759305	-56.07304930686951
+96	1	1	6		Avenida Senador Metello ( entre a Avenida Ipiranga e a São Sebastião)		Não inform	-15.602515553908906	-56.11191987991333
+97	1	1	2		Rua General Irineu de Souza		Não inform	-15.584896203060457	-56.110573410987854
+98	1	1	26	78048-080	Rua Atenas	(Lot Rodoviária Parque)	Não inform	-15.576371117702811	-56.08980006427917
+99	1	1	8	78048-832	Rua I	(Lot Prq Eldorado)	361	-15.576327692070548	-56.07607937577973
+100	1	1	18		Avenida Antartica, proximo ao tervo do santa rosa.		Não inform	-15.584495745697442	-56.116039752960205
+101	1	1	63	78070-015	Rua Desembargador Milton Figueiredo Ferreira Mendes		85	-15.615271622772248	-56.07473982753908
+102	1	1	6		Avenida São Sebastião		Não inform	-15.59755542039508	-56.10837936401367
+103	1	1	3		Região do Jd. das Américas		Não inform	-15.607157820237967	-56.06987625360489
+104	1	1	3		Rua Buenos Aires		Não inform	-15.608927382138953	-56.074615716934204
+105	1	1	16		Avenida Estevão de Mendonça		1295	-15.587004404433386	-56.10311150550842
+106	1	1	7		Rua Trigo de Loureiro		549	-15.585175230955128	-56.08493685722351
+107	1	1	65		Rua Garcia Neto (Entre a rua Rui Barbosa e Rua São Francisco)		Não inform	-15.613373177587135	-56.07804894447327
+108	1	1	20		Avenida Vereador Mario Palma		125	-15.582384934953497	-56.112048625946045
+109	1	1	9		Não informado		Não inform	-15.58769163206713	-56.07519507408142
+110	1	1	63		Rua Luiz Antônio Figueiredo		135	-15.618942556363384	-56.072247326374054
+111	1	1	51	78010-020	Rua Baltazar Navarros		305	-15.599627774626176	-56.09035502824172
+112	1	1	2		Rua Tenente Alcides Duarte de Souza		500	-15.59170644228137	-56.1129230260849
+113	1	1	5		Rua Comandante Costa		1768	-15.602915976123702	-56.10511243343353
+114	1	1	35		Avenida São Sebastião		Não inform	-15.589081581680833	-56.101335883140564
+115	1	1	5		Rua Comandante Costa		Não inform	-15.60519190948021	-56.10716700553894
+116	1	1	18	78158-720	Avenida da Antarctica		690	-15.582018	-56.1198765
+117	1	1	75		Avenida Itaparica		Não inform	-15.62865760852422	-56.05722427368164
+118	1	1	84		Avenida São Sebastião		Não inform	-15.579165713041803	-56.09546184539795
+119	1	1	79		Avenida Madri		Não inform	-15.57314568441952	-56.09567642211914
+120	1	1	8		Rua Doutor Paulo Epaminondas Esq. c/ Rua Poxoréo		68	-15.581116371184746	-56.082801818847656
+121	1	1	6		Rua Almirante Henrique Pinheiro Guedes com a Rua Major Otávio Pitaluga		Não inform	-15.587725218321118	-56.11408174037933
+122	1	1	56		Ao lado do Shopping Pantanal, entrada pela Avenida Historiador Rubens de Mendonça		Não inform	-15.579289728945141	-56.07319951057434
+123	1	1	6		Rua Almirante Henrique Pinheiro Guedes com a Rua Major Otávio Pitaluga		Não inform	-15.588285849595907	-56.114054918289185
+124	1	1	54		Rua Professor Philogonio Correa com Rua Pedro Fernandes		s/n	-15.61961676124363	-56.06103837490082
+125	1	1	75		Rua Antonio Dorileo		255	-15.629608165856954	-56.05942368507385
+126	1	1	80		Avenida Governador Dante Martins de Oliveira		Não inform	-15.585826294568745	-56.05232119560242
+127	1	1	55		Rua Comendador Henrique		978	-15.609392373973966	-56.0922110080719
+128	1	1	11		Rua João Carlos Pereira Leite		418	-15.58681063682785	-56.09275013208389
+129	1	1	37		Rodovia Emanoel Pinheiro		Não inform	-15.544247094177915	-56.084561347961426
+130	1	1	37		Rodovia Emanoel Pinheiro		Não inform	-15.544412476765735	-56.084089279174805
+131	1	1	11		Rua Tenente Eulálio Guerra		Não inform	-15.588544204506947	-56.09426021575928
+132	1	1	6		Avenida São Sebastião		2150	-15.595914933190808	-56.10661178827286
+133	1	1	16		Avenida Estevão de Mendonça esquina com a rua João Bento		1067	-15.588926569178834	-56.1047637462616
+134	1	1	9		Av. do Cpa contorno leste		163 e 164	-15.57890217899871	-56.066129207611084
+135	1	1	56		Rua Projetada, Gleba 04		Não inform	-15.578710987422587	-56.071879863739014
+136	1	1	70		Rua Capitão Ipora esquina com rua Oswaldo Cruz		Não inform	-15.61158815450551	-56.08204007148743
+137	1	1	28		Jardim Cuiabá		Não inform	-15.595266485026833	-56.11323952674866
+138	1	1	7		Rua Y, fundos com a Av.I		200	-15.58395577292037	-56.08164310455322
+139	1	1	64		Rua San Francisco, loteamento Jd. Luciana, Quadra F		400	-15.627818118080883	-56.06996476650238
+140	1	1	2		Cursino do Amarante, próximo ao parque mae bonifácia		Não inform	-15.585394835976066	-56.10761761665344
+141	1	1	55	78015-190	Rua Pimenta Bueno		901	-15.606609891668809	-56.09702469734496
+142	1	2	85		Rua Barão de Melgaço		2290	-15.639402782243628	-56.08177185058594
+143	1	1	78		Não informado		Não inform	-15.561534024057762	-56.08840763568878
+144	1	1	83		Rodovia Palmiro Paes de Barros		Não inform	-15.646603799323678	-56.052144169807434
+145	1	1	2		Rua Marechal Floriano Peixoto		s/n	-15.585919303487948	-56.11196279525757
+146	1	1	75		Rua dos Bem-te-vis		255	-15.629949125564287	-56.04528307914734
+147	1	1	160	78048-250	Avenida Doutor Hélio Ribeiro		195	-15.573930277546694	-56.076134890460196
+148	1	1	83		Rodovia Palmiro Paes de Barros		Não inform	-15.65256485125114	-56.055389642715454
+149	1	1	2		Duque de Caxias, Atrás do Big Lar ao Lado do Nicole		Não inform	-15.584053949894492	-56.10993504524231
+150	1	1	2		Rua Almirante Henrique Guedes x Rua Gen. Maurício Cardoso		Não inform	-15.5874849473063	-56.11320734024048
+151	1	1	26		Avenida Madri		Não inform	-15.574618411574617	-56.09446406364441
+152	1	1	3		Avenida Haití		Não inform	-15.6105703485707	-56.075066328048706
+153	1	1	2	78043-356	Rua Mestre Albertino		Não inform	-15.587878245845278	-56.10604509059907
+154	1	1	37		Rod. Arq. Helder Cãndia		Não inform	-15.544309112663914	-56.08193278312683
+155	1	1	37		Rod. Arq. Helder Cãndia		Não inform	-15.542541578495884	-56.081299781799316
+156	1	1	37		Rod. Arq. Helder Cãndia		Não inform	-15.545001651155713	-56.08401417732239
+157	1	1	37		Rod. Arq. Helder Cãndia		Não inform	-15.542252156251477	-56.081106662750244
+158	1	1	37		Rod. Arq. Helder Cãndia		Não inform	-15.545218714979833	-56.08237266540527
+159	1	1	35		Rua Estevão de Mendonça		Não inform	-15.584697266274467	-56.10086917877197
+160	1	2	86		Rua Goiás		Não inform	-15.657287868775487	-56.14420645329551
+161	1	2	87		alameda		Não inform	-15.618511167402882	-56.10534310340881
+162	1	2	86		Rua Goiás		525	-15.65866002795635	-56.14408493041992
+163	1	1	20		Rua Alfenas		233	-15.58128172413621	-56.11227124929428
+164	1	1	37		Rodovia Arquiteto Helder Candia		Não inform	-15.554169814373693	-56.09761029481888
+165	1	1	28		Rua General Ramiro de Noronha		Não inform	-15.591541097721966	-56.116275787353516
+166	1	1	20	78040-660	Rua Patos de Minas		199	-15.5806776	-56.1135499
+167	1	2	85		Endereço teste		Numero tes	-15.552815804688207	-56.05329215526581
+168	1	1	35		Rua Presidente Afonso Penna		27	-15.586622036182904	-56.10126078128815
+169	1	1	38		Avenida Miguel Sutil		6322	-15.57847328953937	-56.098803877830505
+170	1	1	37		Rodovia Helder Cândia, Km 04		Não inform	-15.533269528066513	-56.109044551849365
+171	1	1	6	78020-600	Avenida Senador Metello		1584	-15.6120799	-56.1022303
+172	1	1	74	78050-402	Rua K		333	-15.580141171560514	-56.068991124629974
+173	1	1	18		Rua Peru, esquina com Rua Brasil		Não inform	-15.583601818703082	-56.11602634191513
+174	1	1	8		Luis Beltran Makawa		123	-0	-0
+175	1	1	35		Avenida Senador Filinto Muller		s/n	-15.583790422121051	-56.102322936058044
+176	1	1	63	78070-070	Rua Doze		740	-15.619359638184802	-56.0726061067459
+177	1	1	79		Rua Atenas esquina com a Rua Estocolmo		s/n	-15.576380502832346	-56.09121322631836
+178	1	1	59		Avenida Beira Rio - Próximo a Unic e Unirondon		Não inform	-15.626219202150107	-56.084089279174805
+179	1	1	88		Não informado		Não inform	-15.615101354447171	-56.018879413604736
+180	1	1	3	78060-601	Avenida Brasília		Não inform	-15.61139249572604	-56.07302100597382
+181	1	1	2		Rua José Haddad		Não inform	-15.588874898318826	-56.116286516189575
+182	1	1	2	78043-298	Rua José Haddad		5	-15.589626663368335	-56.11579133491823
+183	1	1	89		Rua da Fé		Não inform	-15.602841058478425	-56.126258969306946
+184	1	1	16	78045-175	Avenida Presidente Joaquim Augusto da Costa Marques		445	-15.591257958626654	-56.100244421075075
+185	1	1	44	78058-120	Rua 30 esquina com rua 31		114	-15.573393686506424	-56.06028735637665
+186	1	1	26	78048-238	Rua Doutor Santo Scaravelli	(Jd Bom Clima)	475	-15.564699485520812	-56.09044438975754
+187	1	2	154	78110-354	Rua Governador Pedro Pedrossian	(Lot Centro)	989	-15.6533219	-56.1276356
+188	1	2	90		Rua Antônio João (Jardim Aeroporto - Várzea Grande/MT)		Não inform	-15.657688944176712	-56.12094283103943
+189	1	1	9		Rua T, Setor B da Quadra 27		s/n	-15.587479780184608	-56.075334548950195
+190	1	1	65		Rua Maranhão		S/N	-15.612797115396605	-56.07890725135803
+191	1	1	75		Rua Alexandre de Barros		s/n	-15.62512397628127	-56.05570077896118
+192	1	1	20		Rua Montes Claros		182	-15.577300298133297	-56.11520290374756
+193	1	1	75		Rua Antonio Dorileo (Coxipó - Cuiabá/MT)		Não inform	-15.628533622459928	-56.05871558189392
+194	1	1	2	78043-268	Rua Marechal Antônio Aníbal da Motta		299	-15.590330575379344	-56.115070647360234
+195	1	1	58		Avenida B ( Dr. Hélio Ribeiro)		Não inform	-15.571337057689961	-56.07843518257141
+196	1	1	38		Não informado		Não inform	-15.576917911822708	-56.09947979450226
+197	1	1	54	78068-685	Avenida Archimedes Pereira Lima		688	-15.600655533683186	-56.07089464383851
+198	1	1	1	78080-145	Rua dos Buritis		155	-15.6231583912947	-56.04802875277861
+199	1	1	68		Não informado		Não inform	-15.562495227771624	-56.08846127986908
+200	1	1	91		Av. Kaytto Guilherme do Nascimento Pinto, Quadra 2.		8	-15.56384658991388	-56.082099080085754
+201	1	2	92		Rua Aníbal Molina Ribeiro (Ponte Nova - Várzea Grande/MT)		Não inform	-15.6264487	-56.1163176
+202	1	1	80		Av. Dante Martins de Oliveira (Carumbé - Cuiabá/MT)		Não inform	-15.584958209292033	-56.0512375831604
+203	1	1	80	78050-700	Avenida Governador Dante Martins de Oliveira		3551	-15.587113676806052	-56.0561765687561
+204	1	1	73		Rua do Flamengo		145	-15.605532909805886	-56.0431694984436
+205	1	1	79		Rua Estocolmo, S/Nº - Senhor dos Passos - Cuiabá - MT		s/n	-15.574737262779667	-56.09077334403992
+206	1	1	3		Arquimedes Pereira Lima		Não inform	-15.599632490894587	-56.07289910316467
+207	1	1	56		Av. Nigéria, Jardim Aclimação		85	-15.580266351568483	-56.073360443115234
+208	1	1	6		Não informado		Não inform	-15.595456956669697	-56.10952125352014
+209	1	1	2	78043-971	Avenida Miguel Sutil		9803	-15.587282732815956	-56.11601429251251
+210	1	1	18		Avenida Miguel Sutil		Não inform	-15.586312007349163	-56.11524850130081
+211	1	1	3		Avenida Brasília, Esquina com a Rua La Paz		Não inform	-15.609800532604714	-56.070844531059265
+212	1	2	87		Alameda Júlio Muller (Alameda - Várzea Grande/MT)		Não inform	-15.623622910263329	-56.097775101657135
+213	1	2	86		Rua Maranhão, s/n° (Nova Várzea Grande - Várzea Grande/MT)		Não inform	-15.65824163604245	-56.1422073841095
+214	1	1	5		Avenida Dr. Euricles Mota		565	-15.602892725822928	-56.07790946960449
+215	1	1	76		Av. Itaparica		s/n°	-15.637501754109678	-56.05153799057007
+216	1	1	75		Rua Santo Antônio		Não inform	-15.623284810235697	-56.05774998664856
+217	1	1	11		Rua Desembargador José de Mesquita		Não inform	-15.58895995239638	-56.093074679374695
+218	1	1	44	78053-744	Rua Vinte	(St Morada do Ouro II)	5132	-15.574317736926321	-56.0607951069153
+219	1	1	8		Av Fernando Correa		2206	-0	-0
+220	1	1	8		Av Fernando Correa		2206	-0	-0
+221	1	1	37		Avenida Mario Palma		Não inform	-15.5575907113202	-56.10210835933685
+222	1	1	73		Avenida Santa Cruz		Não inform	-15.601524575139338	-56.043405532836914
+223	1	1	73		Av. Santa cruz , Bairro Santa Cruz 2, s/n ? Cuiabá MT		Não inform	-15.601492536185726	-56.043115854263306
+224	1	2	100		Avenida A, Jardim Mundo Novo		892	-15.651852013633157	-56.18107795715332
+225	1	1	37		Rua das Bromélias		Não inform	-15.550110350111277	-56.09575152397156
+226	1	1	16		Avenida São Sebastião		s/n	-15.588682272490958	-56.100783348083496
+227	1	1	12		Avenida Belvedere		s/n	-15.60018017264829	-56.02877140045166
+228	1	2	120		Mirante do Pary		Não inform	-15.59534023102172	-56.162877953611314
+229	1	1	37		Avenida dos florais		Não inform	-15.539078821404066	-56.08662128448486
+230	1	1	93		Avenida Camboriú		s/n	-15.648050171040161	-56.05896234512329
+231	1	1	37		Avenida dos florais		Não inform	-15.53498545737336	-56.092329025268555
+232	1	1	60		Avenida B		Não inform	-15.594496611638657	-56.044864654541016
+233	1	1	88		Avenida das Torres		Não inform	-15.621838263544792	-56.00636959075928
+234	1	1	60		Avenida B		Não inform	-15.595453270031912	-56.05168766729821
+235	1	1	39		Avenida C		Não inform	-15.559237040457976	-56.12263259796782
+236	1	1	88		Rua Projetada A		s/n	-15.610792509687982	-56.016143560409546
+237	1	2	95		Avenida Mario Andreazza		s/n	-15.629360194804173	-56.18337392807007
+238	1	1	40		Avenida Dr. Hélio Ribeiro		487	-15.571750396472703	-56.07825815677643
+239	1	1	28		Avenida das Flores, esquina com rua dos lírios e rua dos crisântemos, quadra nº 53, Jardim Cuiabá		53	-15.594608464751847	-56.120304465293884
+240	1	1	28		Avenida Miguel Sutil, esquina com a Rua Nestelaus Devuisky		Não inform	-15.596183151685226	-56.1218386888504
+241	1	1	18	78040-365	Avenida Miguel Sutil	lado par	8388	-15.58619053551795	-56.115022175115975
+242	1	1	7		Avenida Historiador Rubens de Mendonça / Alca de acesso à Miguel Sutil.		s/n	-15.587754234293255	-56.08328998088837
+243	1	1	58		Avenida Dr. Hélio Ribeiro		525	-15.570866129835306	-56.07853174209595
+244	1	1	83	78095-100	Avenida  J		Não inform	-15.65923306982927	-56.05530305683898
+245	1	1	83		Rua J		s/n	-15.65932507080273	-56.05692923069
+246	1	1	22		Rua Inexistente		Não inform	-15.588978240025828	-56.08275890350342
+247	1	1	8		Não informado		Não inform	-15.589350269740473	-56.0866641998291
+248	1	1	23		Travessa João Geraldo Xavier		174	-15.610244856266572	-56.12697243690491
+249	1	1	68		Av. S/D (avenida de acesso ao Detran),Jd. Paiáguas		691	-15.560608990436902	-56.07599973678589
+250	1	2	97		Avenida Chapéu do Sol		Não inform	-15.594124591248622	-56.151732444959634
+251	1	2	97		Avenida Chapéu do Sol		Não inform	-15.593442552115954	-56.15132904053553
+252	1	1	88		Av. Professora Edna Maria Albuquerque Affi, 1100		1100	-15.615586997938125	-56.02229118347168
+253	1	1	30		Rua A, 300 (Jardim Ubirajara - Cuiabá/MT)		300	-15.556888142806583	-56.08627796173096
+254	1	1	83	78095-175	Estrada A		S/N	-15.6656486	-56.0510585
+255	1	1	65		Rua 8 de Abril		300	-15.613650040105854	-56.077356934547424
+256	1	4	101		Rua Vinte e seis		s/n	-15.471724298726834	-55.75730409828782
+257	1	1	54		Rua 43, Vila Boa Esperança, Quadra 88, lote 01 a 20		1100	-15.618171971759418	-56.056865930459026
+258	13	5	102		Rua João Francisco dos Santos, esquina com Rua Romeu Pereira.		nº 99	-26.970191372815965	-48.63254249095917
+259	1	6	103		Avenida Magda de Cassia Pissinatt		Não inform	-11.850593160527689	-55.53783595561981
+260	1	2	95		Avenida Mario Andreazza		s/n	-15.629442851855137	-56.18412494659424
+261	1	2	95		Avenida Mario Andreazza		S/N	-15.629442851855137	-56.18412494659424
+262	1	2	95		Não informado		Não inform	-0	-0
+263	1	2	104		Rua da Atlântica, 237 (Glória - Várzea Grande/MT)		237	-15.634435926555373	-56.14536702632904
+264	1	2	87		Rua Anibal Molina Ribeiro		Não inform	-15.619853149279434	-56.108277440071106
+265	1	1	76		Rua Antonio Dorileo		250	-15.628895248271009	-56.05955243110657
+266	1	6	103		Rua Santa Terezinha		Não inform	-11.883740171612455	-55.4785430431366
+267	1	6	103		Rua Santa Terezinha		Não inform	-11.883740171612455	-55.4785430431366
+268	1	4	101		Não informado		Não inform	-0	-0
+269	1	6	103		Rua Santa Terezinha		Não inform	-11.883740171612455	-55.4785430431366
+270	1	1	83	78095-175	Estrada A	(Próximo a entrada do Parque Cuiabá)	Não inform	0	0
+271	1	1	88		Não informado		Não inform	-15.604520240514239	-56.00804328918457
+272	1	1	105		Av. Dr. Meirelles, ao lado da Academia de Policia Civil com o Balneário Sesc.		Não inform	-15.608777551211977	-56.01109027862549
+273	1	1	35		Avenida São Sebastião		3125	-15.588776537564737	-56.100907802580764
+274	1	4	101		Rodovia Emanuel Pinheiro		KM 57	-15.441374131365784	-55.76668739318848
+275	1	7	106		Não informado		Não inform	-0	-0
+276	1	7	106		Não informado		Não inform	-0	-0
+277	1	1	8		Não informado		Não inform	-0	-0
+278	1	1	60		Avenida B		s/n	-15.595158594026778	-56.05245985707052
+279	13	5	108		Avenida Atlântica		Não inform	-27.00571127195208	-48.61238798943458
+280	13	5	108		Avenida Atlantica		4700	-27.004863442031816	-48.614907534069005
+281	13	5	107		Rua 1141 esquina com Avenida Brasil.		Não inform	-26.980135098791337	-48.636584018179065
+282	13	5	107		Avenida dos Estados		4750	-26.980661310188882	-48.640253030976965
+283	1	1	28		Avenida General Ramiro de Noronha, Jardim Cuiabá , Cuiabá, MT		965	-15.59200031401973	-56.115704725737146
+284	13	5	108		Rua 3700		Não inform	-27.005452561086518	-48.62161688227161
+285	14	8	109		RUA 1124, QUADRA 219		273	-16.706950785219696	-49.26231953786328
+286	13	5	107		RUA 3700		415	-27.005225872887504	-48.62134288097775
+287	13	9	110		Rua 131		Não inform	-27.09504090752174	-48.616527396158745
+288	13	9	110		Não informado		Não inform	-27.095719084565037	-48.6162530414735
+289	13	5	107		Rua 3700		425	-27.005496392106185	-48.62163981059143
+290	13	9	113		Rua 324		302	-27.14056041592428	-48.5985784738607
+291	15	11	115		Não informado		Não inform	-23.549017817882884	-46.69189727414471
+292	16	12	116		Rua José Borba Vasconcelos, 440		440	-3.7461328983744435	-38.471919419142466
+293	1	1	6	78032-080	Avenida Oito de Abril		179	-15.59742203702824	-56.109634773263544
+294	1	1	73	78077-000	Avenida Santa Cruz	(Lot S Cruz II) - lado par	230	-15.600128504620768	-56.042665243148804
+295	1	2	120		Avenida Chapéu do Sol, Várzea Grande, MT		Não inform	-15.593247132339712	-56.18232303634903
+296	1	2	120		Avenida Universitária		s/n	-15.595398996422597	-56.18271094961432
+297	1	2	120	78144-490	Rua Camélias	(Lot Chapéu do Sol)	Não inform	-15.600052292362438	-56.1834486055603
+298	1	13	168	78840-000	Avenida Santa Maria	Residencial Buritis	s/n	0	0
+299	13	9	110		rua 129A		154	-27.095244197612015	-48.61557289656275
+300	1	15	122		BR 364		Não inform	-13.630953462404708	-57.900666686291515
+301	1	1	124	78-065-700	Av. Manoel José de Arruda	S	3177	-15.631487273342133	-56.07183822167974
+302	1	1	37		Rua Maria A. da Silva		438	-15.557723100361414	-56.10194795601171
+303	1	1	44		Rua 4		269	-15.565799129761748	-56.05813674365959
+304	1	1	12		Rua 01		106	-15.606670226343509	-56.028492103530766
+305	14	8	123		Av. Perimetral Norte, Região do Setor Progresso		Não inform	-16.64336660933294	-49.29808527832495
+306	14	8	126		Alameda Abel Soares de Castro, setor Faiçalville		Não inform	-16.748868998089616	-49.313666023493
+307	14	8	127		Rua Tambaqui (Santa Rita - Goiânia/GO)		Não inform	-16.7268551	-49.32988979999999
+308	14	8	128		Rua MDV 1 (Moinho dos Ventos - Goiânia/GO)		Não inform	-16.730032532379056	-49.34140113408665
+309	1	1	78		Não informado		Não inform	-15.568016926679316	-56.089802350063565
+310	1	1	161	78049-406	Rua dos Lírios		205	-15.550032823063889	-56.09514169626464
+311	1	1	37	78048-150	Rodovia Arquiteto Hélder Cândia	km 2,000	MT-010	-15.537556743198946	-56.105072216224265
+312	1	13	168	78840-000	Avenida Santa Maria	Residencial Buritis	S/N	-15.529456210721875	-55.18912904143066
+313	1	1	16	78043-425	Avenida Sao Sebastiao Esq. Rua João Bento	de 311/312 a 919/920	196	-15.590466354840462	-56.102092266082764
+314	1	1	93		Rodovia Palmiro Paes de Barros		1425	-15.653061713113562	-56.05306046710524
+315	1	1	1		Avenida das Seringueiras		162	-15.626084239576661	-56.04918099682004
+316	1	1	37		Avenida Florais		Não inform	-15.543367683688516	-56.10035984438639
+317	1	2	90		Rua Santo Antônio (Centro-Sul - Várzea Grande/MT)		s/n	-15.657042879729863	-56.13419593828439
+318	1	1	9		v. Cassio Caberlin		138	-15.58102760325437	-56.07607750973477
+319	1	1	131	78088-010	Avenida Doutor Meirelles		s/n	-15.603804040592694	-55.994009422570805
+320	1	1	133		Avenida das Torres esquina com avenida Dr. Meirelles		Não inform	-15.620294358405257	-56.00781777760528
+321	1	1	8		Rua Doutor Helio Ribeiro		s/n	-15.569914371509437	-56.079006751392626
+322	1	1	37		Av. Planejada 27 esquina com a Planejada 30		Não inform	-15.545248307172058	-56.10279666629651
+323	1	2	85	78-888-888	Av brasil	perto da casa do ze	4		
+324	1	1	43	78058-120	Rua 29	(Núc Hab CPA IV)	Não inform	-15.573423451150418	-56.05973446705628
+325	1	2	87		Avenida Castelo Branco		Não inform	-0	-0
+326	1	3	134		Rua Jorge Rico esquina com Rua Barão do Rio Branco		Não inform	-16.45254607832076	-54.64481534806356
+327	1	2	90		Avenida Castelo Branco esquina com a rua Castro Alves		Não inform	-15.65850177945372	-56.13203555743689
+328	1	3	136		Rua Otávio Pitaluga - Jd. Mato Grosso - Rondonópolis/MT		1003	-16.476218000008778	-54.623206799915465
+329	1	3	135		venida Maria Soares de Paiva		233	-16.47267463025693	-54.60630664580174
+330	1	3	137	78700-028	Avenida Tiradentes		1841	-16.464915545088463	-54.631597249212646
+331	1	3	136		Avenida Lions Internacional		1950	-16.473231742824126	-54.60489902192296
+332	1	1	132	78-130-780	Av. Balneário Dr. Meirelles		3256	-15.608777551211977	-56.01109027862549
+333	1	3	136		Rua Antonio A. Ribeiro	Bairro Sagrada Familia	77		
+334	1	3	135	78740-162	Avenida Lions Internacional esquina Avenida Estudantes		SN	-16.48362119535072	-54.62109583016356
+335	1	1	44	78053-625	Rua Três		s/n	-15.57101478314378	-56.05994763074952
+336	1	3	152	78735-575	Avenida Governador Julio José de Campos		200		
+337	1	3	149	78710-640	Rua Shelma Lombardi Katto	esquina com rua Sergipe	137	-16.456879419507548	-54.634366453164674
+338	1	3	149	78710-640	Rua Shelma Lombardi Katto	esquina com rua Sergipe	137	0	0
+339	15	17	150	13825-000	Rua Ciclamens	sala 4 - 2º andar	280		
+340	1	1	83	78095-100	Rua J		S/N	-15.65874701073605	-56.051687439086905
+341	1	1	83	78095-100	Rua J		S/N	-15.6578281	-56.060528
+342	1	1	2	78043-263	Rua Tenente Alcides Duarte de Souza		99	-15.592282660910803	-56.11315733942567
+343	1	1	2	78043-300	Avenida José Monteiro de Figueiredo		714	-15.5869414	-56.1121984
+344	1	3	156	78740-018	Avenida Sothero Silva		1313		
+345	1	3	137	78700-028	Avenida Tiradentes	Loja Térrea	1841	-16.4656969	-54.632364
+346	1	3	156	78705-600	Rua Fernando Corrêa da Costa	de 1331/1332 ao fim	01	-16.456625	-54.659202
+347	1	1	4	78050-250	Avenida Historiados Rubens de Mendonça	Pantanal Shopping	3300	-15.60086	-56.0968227
+348	1	1	51	78010-020	Rua Baltazar Navarros		305	-15.5998718	-56.09017170000001
+349	1	1	3	78068-685	Avenida Archimedes Pereira Lima	lado par	s/n	-15.600605949261999	-56.070916101510626
+350	1	1	3	78068-685	Avenida Archimedes Pereira Lima	lado par	s/n	-15.600620926714331	-56.07097161431656
+351	1	4	101	78130-740	Rua Pedro José Ferreira, Ikaray, 280	Salas 201-203	280		
+352	1	4	101	78000-000	Rua Teste	Sala 23	250		
+353	1	2	153	78130-740	Rua Pedro José Ferreira	(Lot S Jorge)	280	-15.6777118	-56.1295757
+354	1	4	101	78195-000	Rodovia Estrada da Chapada com Rio da Casca		2		
+355	1	4	101	78195-000	Rodovia Estrada da Chapada com Rio da Casca		S/N	-15.472390279907884	-55.6946876994751
+356	1	1	29	78035-150	Rua Dom Carlos Luiz D' Amour		s/n	-15.6009174	-56.1366475
+357	1	1	132	78088-800	Avenida Fernando Correa da Costa		5635	-15.633807880460214	-56.04715271123656
+358	1	1	1	78099-46	Rua A		5		
+359	1	1	169	78099-46	Rua A		5		
+360	1	2	120	78144-498	Rua Tiradentes	(Lot Chapéu do Sol)	sn	-15.6002383	-56.184887
+361	1	1	171	78098-270	Avenida Pedro Paulo de Faria Junior		s/n		
+362	1	1	172	78099-205	avenida das travessas		sn	-15.639631809872983	-55.94544184461975
+363	1	19	175	78573-000	Avenida São Paulo	Centro	S/N	-12.7422348	-56.5135243
+364	1	2	120	78144-498	Rua Tiradentes, quadra 4	(Lot Chapéu do Sol)	1	-15.6018831	-56.1797316
+365	1	1	37	78048-150	Rodovia Arquiteto Hélder Cândia	do km 2,000 ao km 4,700	s/n	-15.543332371357717	-56.10082248996581
+366	1	1	2	78043-375	Avenida Miguel Sutil	de 6061 a 8343 - lado ímpar	8061	-15.5860761	-56.11434389999999
+367	1	19	142	78573-000	Avenida São Paulo	Loteamento Jardim Itália I	S/N	-12.735865401269143	-56.358956372656216
+368	1	19	175	78573-000	Av. Romoaldo Alievi	Bairro: Jd. Itália - Central de vendas. Em frente à lotérica.	1422	-12.7415865	-56.5145011
+369	1	1	34	78030-500	Avenida Ipiranga	de 2006 ao fim - lado par	1907	-15.608585950901881	-56.11553763680115
+370	1	1	2	78043-305	Avenida Miguel Sutil	de 8345 a 10747 - lado ímpar	8800	-15.5860761	-56.11434389999999
+371	1	1	160	78048-250	Avenida Doutor Hélio Ribeiro		sn	-15.569638531375746	-56.07931062593383
+372	1	1	44	78050-500	Travessa L		sn	-15.573907022582919	-56.06081968712461
+373	1	1	37	78048-150	Rodovia Arquiteto Hélder Cândia	do km 2,000 ao km 4,700	sn	-15.552531616897594	-56.113096278417956
+374	1	1	37	78048-150					
+375	1	1	37	78130-740					
+376	1	1	75	78000-000	Rodovia Palmiro Paes de Barros		sn	-15.652595623452532	-56.055518556716926
+377	1	2	85	78000-000	Estrada P		sn	-15.680642256271664	-56.108980346801765
+378	1	1	44	78000-000	Rua do DNER	(Lot Prq Jatobá)	150	-15.580865537104602	-56.05543272602845
+379	1	1	183	78118-865	Rua Tricolor	(Lot Jd B Rio)	sn	-15.657172187694615	-56.08520524609376
+380	1	2	183	78118-865	Rua Tricolor	(Lot Jd B Rio)	sn	0	0
+381	1	1	172	78099-250	Avenida das Travessas		sn	-15.638162762591588	-55.94935672390748
+382	1	1	16		Av. São Sebastião, 3161, 10º andar, Ed. Xingu Business Center, B. Quilombo, Cuiabá-MT	10° andar	3161		
+383	1	1	16	78000-000	Avenida São Sebastião, Edifício Xingu Business Center	10° andar	3161		
+384	1	1	16	78045-000	Avenida São Sebastião	10° andar	3161		
+385	1	23	185	78450-000	Avenida Mato Grosso		s/n	-13.815202119709413	-56.10138416290291
+386	1	23	184	78450-000	Avenida Perimetral Jose Aparecido Ribeiro	Loteamento José Aparecido Ribeiro	126	0	0
+387	1	3	147	78000-000	Avenida Poguba		s/n	-16.500975730681173	-54.6208693276672
+388	1	24	187	78455-000	Avenida Cerrado		2455	-13.068922824398275	-55.94671743023682
+389	1	1	33	78045-370	Avenida Dom Bosco		2247	-15.59489262437618	-56.10962944138337
+390	1	1	56	78090-320	Avenida F		s/n	-15.582905635755193	-56.075479388237
+391	1	1	2	78055-731	Rua Marechal Floriano Peixoto		1574		
+392	1	4	101	78195-000	Rua dos Bororos		s/n	-15.443576651353553	-55.75528280842591
+393	1	1	88	78075-685	Rua Vereador Juca do Guaraná		s/n	-15.607236400617612	-56.029576231124885
+394	1	1	189	78090-025	Avenida Aycar Saddi	(Lot Jd Presidente I)	sn	-15.643989752377617	-56.017597485664375
+395	1	1	131	78000-000	Rua Fernando Bazen, Pascoal Ramos, Cuiabá-MT		s/n	-15.616687220444893	-55.97989099133297
+396	1	1	28	78043-230	Avenida Senador Metello		5	-15.599503099717223	-56.11733811009217
+397	1	1	3	78060-634	Rua Buenos Aires		258	-15.607304701856307	-56.07626795768738
+398	1	1	64	78070-270	Rua Filipinas		S/n	-15.621962032946163	-56.07139186966712
+399	1	3	137	78700-000	Avenida dos Bandeirantes	Esquina com Anel Viário Conrado Salles Brito	S/n	-16.421266196144938	-54.611331392410285
+400	1	1	23	78030-000	Avenida Miguel Sutil	Sala Comercial 1001 10 Andar Edif Jardim Cuiaba Office Flat Loteamento Jardim Primavera	2625		
+401	1	13	168	78840-000	avenida santa maria,  residencial Buritis	saida para Chapada, à 3 minutos de campo verde, fica do lado esquerdo	1099	0	0
+402	1	24	187	78455-000	Avenida Brasil, 340s	Alvorada	340		
+403	1	24	187	78455-000	Avenida Brasil, 340s	Alvorada	340		
+404	1	24	191	78455-000	Avenida Brasil, 340s	Alvorada	340		
+405	1	24	191	78455-000	Avenida Brasil 340s	Alvorada	340		
+406	1	24	187	78455-000	Avenida Brasil, 340s	Alvorada	340	0	0
+407	1	24	192	78455-000	Rua Corbelia		0	-13.07564813968535	-55.91287851333618
+408	1	1	193	78088-505	Avenida Archimedes Pereira Lima	lado ímpar	214	-15.621507402151574	-56.04296581852723
+409	1	1	75	78070-720	Av. Z-1	lado ímpar	314	-15.632663647124883	-56.07322113621522
+410	1	1	195	78104-000	Estrada Parque	Distrito da guia	0	-15.482756707240604	-56.17073552716063
+411	1	1	158	78005-100	Avenida Marechal Deodoro	de 949/950 a 1898/1899	1290	0	0
+412	1	1	37	78048-150	Rodovia Arquiteto Hélder Cândia	do km 2,000 ao km 4,700	Não inform	-15.5345719817383	-56.11237049102783
+413	1	1	61	78060-040	Avenida Parque do Barbádo	lado par	79	-15.603249009409994	-56.06892960179139
+414	1	1	37	78048-180	Rua Clarindo Epifânio da Silva	Ribeirão do Lipa	1165	-15.55825740848873	-56.098396350029
+415	1	2	92	78115-115	Rua Benedita Bernardina Curvo	(Lot Pte Nova)  Fundos da Havan	271	-15.632490586608114	-56.12212853539277
+416	1	1	44	78053-160	Rua S/D, 160 (Região do Morada do Ouro )	(St Centro-Sul)	160	-15.579491033867559	-56.05438666451264
+417	1	25	196	78600-056	Rua Vereador Manoel Brito	lado par	706	-15.89306148490604	-52.2633578072815
+418	1	2	120	78156-406	Avenida Projetada Sesmaria Chapéu do Sol		Sn	-15.587076523539872	-56.18365304577635
+419	1	1	163	78020-500	Rua Tenente Coronel Thogo da Silva Pereira		116	-15.600178787329329	-56.10656099427035
+420	13	26	197	88304-400	Rua José Pereira Liberato	de 1351/1352 a 1987/1988	1390	-26.90393096896461	-48.68287699330144
+421	1	1	18	78040-290	Rua Polônia, esquina com a rua Waldo Gustavo Olavarria		S/n	-15.582996759682585	-56.11899839747241
+422	15	11	200	01131-010	Rua Sérgio Tomás		500	0	0
+423	1	1	20	78040-650	R MONTES CLAROS		83		
+424	1	1	75	78040-650	Rua Montes Claros		sn	-15.726913354548486	-56.09591262448121
+425	1	3	202	78721-877	Rua F4	QD27 LTs 01 a 03	0		
+426	1	1	171	78098-900	Rua Z	s/n	325	-15.673618046720362	-55.959892440917955
+427	1	27	206	78870-000	Rodovia MT 130		KM 5	-14.458254001577183	-54.04920475590516
+428	1	1	158	78005-100	Avenida Marechal Deodoro	Atras da IFMT, em Frente Panificadora Marechal	1290		
+429	1	1	26	78048-040	Rua Varsóvia	(Lot Rodoviária Parque)	101		
