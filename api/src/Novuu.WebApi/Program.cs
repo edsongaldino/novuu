@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Novuu.Infrastructure.Data;
 using Novuu.Application.Interfaces;
 using Novuu.Application.Services;
@@ -64,14 +64,28 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference(); // Exposes Scalar API documentation at /scalar/v1
 }
 
-// Only enforce HTTPS in production to simplify local HTTP communication
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
+// HttpsRedirection removed because Traefik handles SSL and redirects.
 
 // Enable CORS and Routing for Controllers
 app.UseCors();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/json";
+        var exceptionHandlerPathFeature = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
+        var exception = exceptionHandlerPathFeature?.Error;
+        
+        // Retorna o erro real para o frontend em vez de omitir o corpo
+        await context.Response.WriteAsJsonAsync(new { 
+            error = exception?.Message, 
+            stackTrace = exception?.StackTrace,
+            inner = exception?.InnerException?.Message
+        });
+    });
+});
 
 app.UseStaticFiles();
 
@@ -85,6 +99,7 @@ if (System.IO.Directory.Exists(legacyUploadsPat))
     });
 }
 
+app.MapGet("/ping", () => "pong");
 app.MapControllers();
 
 app.Run();
