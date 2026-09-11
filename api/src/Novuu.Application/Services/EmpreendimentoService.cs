@@ -10,10 +10,12 @@ namespace Novuu.Application.Services;
 public class EmpreendimentoService : IEmpreendimentoService
 {
     private readonly IApplicationDbContext _context;
+    private readonly Microsoft.Extensions.Configuration.IConfiguration _configuration;
 
-    public EmpreendimentoService(IApplicationDbContext context)
+    public EmpreendimentoService(IApplicationDbContext context, Microsoft.Extensions.Configuration.IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
 
     public async Task<IEnumerable<EmpreendimentoListItemDto>> SearchAsync(SearchRequest request)
@@ -83,7 +85,8 @@ public class EmpreendimentoService : IEmpreendimentoService
             .ToListAsync();
 
         var empIds = list.Select(l => l.Id).ToList();
-        var legacyUploadsPath = @"C:\laragon\www\lancamentos\public\uploads";
+        var cdnBaseUrl = _configuration["CdnBaseUrl"];
+        var legacyUploadsPath = _configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
 
         // Query photos for all items in list, excluding plant photos
         var allFotos = await _context.Fotos
@@ -115,32 +118,40 @@ public class EmpreendimentoService : IEmpreendimentoService
                 var arquivo = foto.Arquivo?.Trim();
                 if (string.IsNullOrEmpty(arquivo)) continue;
 
-                var p400 = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), "400x300", arquivo);
-                if (System.IO.File.Exists(p400))
+                if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
                 {
-                    item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/400x300/{arquivo}";
+                    item.ImagemUrl = $"{cdnBaseUrl.TrimEnd('/')}/empreendimento/{item.Id}/original/{System.IO.Path.GetFileName(arquivo)}";
                     break;
                 }
-
-                var origPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), "original", arquivo);
-                if (System.IO.File.Exists(origPath))
+                else
                 {
-                    item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/original/{arquivo}";
-                    break;
-                }
+                    var p400 = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), "400x300", arquivo);
+                    if (System.IO.File.Exists(p400))
+                    {
+                        item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/400x300/{arquivo}";
+                        break;
+                    }
 
-                var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), arquivo);
-                if (System.IO.File.Exists(rootPath))
-                {
-                    item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/{arquivo}";
-                    break;
-                }
+                    var origPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), "original", arquivo);
+                    if (System.IO.File.Exists(origPath))
+                    {
+                        item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/original/{arquivo}";
+                        break;
+                    }
 
-                var p262 = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), "262x221", arquivo);
-                if (System.IO.File.Exists(p262))
-                {
-                    item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/262x221/{arquivo}";
-                    break;
+                    var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), arquivo);
+                    if (System.IO.File.Exists(rootPath))
+                    {
+                        item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/{arquivo}";
+                        break;
+                    }
+
+                    var p262 = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", item.Id.ToString(), "262x221", arquivo);
+                    if (System.IO.File.Exists(p262))
+                    {
+                        item.ImagemUrl = $"/uploads/empreendimento/{item.Id}/262x221/{arquivo}";
+                        break;
+                    }
                 }
             }
 
@@ -204,16 +215,23 @@ public class EmpreendimentoService : IEmpreendimentoService
                 else
                 {
                     var cleanLogo = cLogo.TrimStart('/', '\\').Replace('/', System.IO.Path.DirectorySeparatorChar);
-                    var publicRootPath = @"C:\laragon\www\lancamentos\public";
-                    var diskPath = System.IO.Path.Combine(publicRootPath, cleanLogo);
-                    if (System.IO.File.Exists(diskPath))
+                    
+                    if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
                     {
-                        item.ConstrutoraLogoUrl = $"/{cLogo.TrimStart('/')}";
+                        item.ConstrutoraLogoUrl = $"{cdnBaseUrl.TrimEnd('/')}/{cleanLogo}";
+                    }
+                    else
+                    {
+                        var diskPath = System.IO.Path.Combine(legacyUploadsPath, cleanLogo);
+                        if (System.IO.File.Exists(diskPath))
+                        {
+                            item.ConstrutoraLogoUrl = $"/{cLogo.TrimStart('/')}";
+                        }
                     }
                 }
             }
 
-            if (string.IsNullOrEmpty(item.ConstrutoraLogoUrl) && item.ConstrutoraId > 0)
+            if (string.IsNullOrEmpty(item.ConstrutoraLogoUrl) && item.ConstrutoraId > 0 && string.IsNullOrWhiteSpace(cdnBaseUrl))
             {
                 var subDirsLogo = new[] { "125x95", "original", "", "200x200" };
                 foreach (var dir in subDirsLogo)
