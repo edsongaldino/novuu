@@ -89,12 +89,12 @@ app.UseExceptionHandler(errorApp =>
 
 app.UseStaticFiles();
 
-var legacyUploadsPat = @"C:\laragon\www\lancamentos\public\uploads";
-if (System.IO.Directory.Exists(legacyUploadsPat))
+var legacyUploadsPath = builder.Configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
+if (System.IO.Directory.Exists(legacyUploadsPath))
 {
     app.UseStaticFiles(new StaticFileOptions
     {
-        FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(legacyUploadsPat),
+        FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(legacyUploadsPath),
         RequestPath = "/uploads"
     });
 }

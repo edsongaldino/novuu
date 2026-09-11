@@ -6,6 +6,7 @@ using Novuu.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Novuu.WebApi.Controllers;
 
@@ -15,11 +16,13 @@ public class EmpreendimentosController : ControllerBase
 {
     private readonly IEmpreendimentoService _empreendimentoService;
     private readonly IApplicationDbContext _context;
+    private readonly IConfiguration _configuration;
 
-    public EmpreendimentosController(IEmpreendimentoService empreendimentoService, IApplicationDbContext context)
+    public EmpreendimentosController(IEmpreendimentoService empreendimentoService, IApplicationDbContext context, IConfiguration configuration)
     {
         _empreendimentoService = empreendimentoService;
         _context = context;
+        _configuration = configuration;
     }
 
     [HttpGet]
@@ -104,8 +107,15 @@ public class EmpreendimentosController : ControllerBase
             return arq;
         }
 
-        var legacyUploadsPath = @"C:\laragon\www\lancamentos\public\uploads";
         var fileNameOnly = System.IO.Path.GetFileName(arq);
+        var cdnBaseUrl = _configuration["CdnBaseUrl"];
+        
+        if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
+        {
+            return $"{cdnBaseUrl.TrimEnd('/')}/empreendimento/{empId}/original/{fileNameOnly}";
+        }
+
+        var legacyUploadsPath = _configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
 
         // 1. Check direct relative path if arq contains directory separators
         var directPath = System.IO.Path.Combine(legacyUploadsPath, arq);
@@ -518,7 +528,7 @@ public class EmpreendimentosController : ControllerBase
     public IActionResult GetPhotos(int id)
     {
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        var legacyUploadsPath = @"C:\laragon\www\lancamentos\public\uploads";
+        var legacyUploadsPath = _configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
         var result = new System.Collections.Generic.List<string>();
         var seenUrls = new System.Collections.Generic.HashSet<string>();
 
@@ -536,23 +546,33 @@ public class EmpreendimentosController : ControllerBase
             .ThenBy(f => f.Id)
             .ToList();
 
+        var cdnBaseUrl = _configuration["CdnBaseUrl"];
+        
         foreach (var foto in fotosFromDb)
         {
             var arquivo = foto.Arquivo?.Trim();
             if (string.IsNullOrEmpty(arquivo)) continue;
 
             string? url = null;
-            var originalPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), "original", arquivo);
-            if (System.IO.File.Exists(originalPath))
+            
+            if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
             {
-                url = $"{baseUrl}/uploads/empreendimento/{id}/original/{arquivo}";
+                url = $"{cdnBaseUrl.TrimEnd('/')}/empreendimento/{id}/original/{System.IO.Path.GetFileName(arquivo)}";
             }
             else
             {
-                var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), arquivo);
-                if (System.IO.File.Exists(rootPath))
+                var originalPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), "original", arquivo);
+                if (System.IO.File.Exists(originalPath))
                 {
-                    url = $"{baseUrl}/uploads/empreendimento/{id}/{arquivo}";
+                    url = $"{baseUrl}/uploads/empreendimento/{id}/original/{arquivo}";
+                }
+                else
+                {
+                    var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), arquivo);
+                    if (System.IO.File.Exists(rootPath))
+                    {
+                        url = $"{baseUrl}/uploads/empreendimento/{id}/{arquivo}";
+                    }
                 }
             }
 
@@ -639,7 +659,7 @@ public class EmpreendimentosController : ControllerBase
     public IActionResult GetPhotosCategorized(int id)
     {
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        var legacyUploadsPath = @"C:\laragon\www\lancamentos\public\uploads";
+        var legacyUploadsPath = _configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
         
         // Query database photos for this development, excluding plant photos
         var fotosFromDb = _context.Fotos
@@ -658,6 +678,7 @@ public class EmpreendimentosController : ControllerBase
         // Build photo DTOs with resolved URLs
         var result = new System.Collections.Generic.List<object>();
         var seenUrls = new System.Collections.Generic.HashSet<string>();
+        var cdnBaseUrl = _configuration["CdnBaseUrl"];
 
         foreach (var foto in fotosFromDb)
         {
@@ -665,17 +686,25 @@ public class EmpreendimentosController : ControllerBase
             if (string.IsNullOrEmpty(arquivo)) continue;
 
             string? url = null;
-            var originalPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), "original", arquivo);
-            if (System.IO.File.Exists(originalPath))
+            
+            if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
             {
-                url = $"{baseUrl}/uploads/empreendimento/{id}/original/{arquivo}";
+                url = $"{cdnBaseUrl.TrimEnd('/')}/empreendimento/{id}/original/{System.IO.Path.GetFileName(arquivo)}";
             }
             else
             {
-                var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), arquivo);
-                if (System.IO.File.Exists(rootPath))
+                var originalPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), "original", arquivo);
+                if (System.IO.File.Exists(originalPath))
                 {
-                    url = $"{baseUrl}/uploads/empreendimento/{id}/{arquivo}";
+                    url = $"{baseUrl}/uploads/empreendimento/{id}/original/{arquivo}";
+                }
+                else
+                {
+                    var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), arquivo);
+                    if (System.IO.File.Exists(rootPath))
+                    {
+                        url = $"{baseUrl}/uploads/empreendimento/{id}/{arquivo}";
+                    }
                 }
             }
 
@@ -714,7 +743,7 @@ public class EmpreendimentosController : ControllerBase
     public IActionResult GetPlantas(int id)
     {
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        var legacyUploadsPath = @"C:\laragon\www\lancamentos\public\uploads";
+        var legacyUploadsPath = _configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
 
         var plantasFromDb = _context.Plantas
             .Where(p => p.EmpreendimentoId == id 
@@ -745,21 +774,31 @@ public class EmpreendimentosController : ControllerBase
                 .ToList();
 
             var photoUrls = new System.Collections.Generic.List<string>();
+            var cdnBaseUrl = _configuration["CdnBaseUrl"];
+            
             foreach (var foto in photos)
             {
                 var arquivo = foto.Arquivo?.Trim();
                 if (string.IsNullOrEmpty(arquivo)) continue;
-                var path = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), "original", arquivo);
-                if (System.IO.File.Exists(path))
+                
+                if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
                 {
-                    photoUrls.Add($"{baseUrl}/uploads/empreendimento/{id}/original/{arquivo}");
+                    photoUrls.Add($"{cdnBaseUrl.TrimEnd('/')}/empreendimento/{id}/original/{System.IO.Path.GetFileName(arquivo)}");
                 }
                 else
                 {
-                    var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), arquivo);
-                    if (System.IO.File.Exists(rootPath))
+                    var path = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), "original", arquivo);
+                    if (System.IO.File.Exists(path))
                     {
-                        photoUrls.Add($"{baseUrl}/uploads/empreendimento/{id}/{arquivo}");
+                        photoUrls.Add($"{baseUrl}/uploads/empreendimento/{id}/original/{arquivo}");
+                    }
+                    else
+                    {
+                        var rootPath = System.IO.Path.Combine(legacyUploadsPath, "empreendimento", id.ToString(), arquivo);
+                        if (System.IO.File.Exists(rootPath))
+                        {
+                            photoUrls.Add($"{baseUrl}/uploads/empreendimento/{id}/{arquivo}");
+                        }
                     }
                 }
             }
@@ -924,7 +963,7 @@ public class EmpreendimentosController : ControllerBase
         var totalEmpreendimentos = await _context.Empreendimentos.CountAsync(e => e.ConstrutoraId == targetId);
 
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        var legacyUploadsPath = @"C:\laragon\www\lancamentos\public\uploads";
+        var legacyUploadsPath = _configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
         string? resolvedLogoUrl = null;
 
         if (!string.IsNullOrWhiteSpace(logoUrl))
