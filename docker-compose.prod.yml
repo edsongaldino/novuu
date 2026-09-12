@@ -22,11 +22,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__DefaultConnection=${NOVUU_CONNECTION_STRING}
-      - CdnBaseUrl=https://novuu.nyc3.cdn.digitaloceanspaces.com
-      - SpacesAccessKey=DO801Z3RQFWJ6WEBJ7CF
-      - SpacesSecretKey=iicoMKwVwQn1GlQBHb+5TOx1Gx8XDMwIZvJ4apI701o
-      - SpacesBucket=novuu
-
+      - CdnBaseUrl=${NOVUU_CDN_URL}
+      - SpacesAccessKey=${NOVUU_SPACES_KEY}
+      - SpacesSecretKey=${NOVUU_SPACES_SECRET}
+      - SpacesBucket=${NOVUU_SPACES_BUCKET}
     depends_on:
       - db
     networks:
