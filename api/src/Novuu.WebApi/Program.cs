@@ -19,6 +19,18 @@ builder.Services.AddScoped<ILeadService, LeadService>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IPropostaService, PropostaService>();
 
+var spacesAccessKey = builder.Configuration["SpacesAccessKey"];
+var spacesSecretKey = builder.Configuration["SpacesSecretKey"];
+if (!string.IsNullOrWhiteSpace(spacesAccessKey) && !string.IsNullOrWhiteSpace(spacesSecretKey))
+{
+    var s3Config = new Amazon.S3.AmazonS3Config
+    {
+        ServiceURL = "https://nyc3.digitaloceanspaces.com",
+        ForcePathStyle = false // For DO Spaces, path style should be false to use virtual host URLs
+    };
+    builder.Services.AddSingleton<Amazon.S3.IAmazonS3>(new Amazon.S3.AmazonS3Client(spacesAccessKey, spacesSecretKey, s3Config));
+}
+
 // Add CORS Policy to allow frontend applications to connect
 builder.Services.AddCors(options =>
 {

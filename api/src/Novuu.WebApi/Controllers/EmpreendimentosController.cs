@@ -1140,7 +1140,7 @@ public class EmpreendimentosController : ControllerBase
     }
 
     [HttpPost("{id}/upload-foto-gerenciamento")]
-    public async Task<IActionResult> UploadFotoGerenciamento(int id, IFormFile file, [FromForm] string? tipo)
+    public async Task<IActionResult> UploadFotoGerenciamento(int id, IFormFile file, [FromForm] string? tipo, [FromServices] IServiceProvider serviceProvider)
     {
         var item = await _context.Empreendimentos.FindAsync(id);
         if (item == null) return NotFound("Empreendimento não encontrado.");
@@ -1149,18 +1149,43 @@ public class EmpreendimentosController : ControllerBase
 
         try
         {
-            var targetDir = System.IO.Path.Combine(@"C:\laragon\www\lancamentos\public\uploads\empreendimento", id.ToString(), "original");
-            if (!System.IO.Directory.Exists(targetDir))
-            {
-                System.IO.Directory.CreateDirectory(targetDir);
-            }
-
             var fileName = $"{Guid.NewGuid()}_{System.IO.Path.GetFileName(file.FileName)}";
-            var filePath = System.IO.Path.Combine(targetDir, fileName);
-
-            using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+            
+            var s3Client = serviceProvider.GetService<Amazon.S3.IAmazonS3>();
+            var cdnBaseUrl = _configuration["CdnBaseUrl"];
+            
+            if (s3Client != null && !string.IsNullOrWhiteSpace(cdnBaseUrl))
             {
-                await file.CopyToAsync(stream);
+                var bucketName = _configuration["SpacesBucket"] ?? "novuu";
+                var key = $"empreendimento/{id}/original/{fileName}";
+
+                using (var stream = file.OpenReadStream())
+                {
+                    var putRequest = new Amazon.S3.Model.PutObjectRequest
+                    {
+                        BucketName = bucketName,
+                        Key = key,
+                        InputStream = stream,
+                        ContentType = file.ContentType,
+                        CannedACL = Amazon.S3.S3CannedACL.PublicRead
+                    };
+                    await s3Client.PutObjectAsync(putRequest);
+                }
+            }
+            else
+            {
+                var targetDir = System.IO.Path.Combine(@"C:\laragon\www\lancamentos\public\uploads\empreendimento", id.ToString(), "original");
+                if (!System.IO.Directory.Exists(targetDir))
+                {
+                    System.IO.Directory.CreateDirectory(targetDir);
+                }
+
+                var filePath = System.IO.Path.Combine(targetDir, fileName);
+
+                using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
             }
 
             var foto = new Foto
