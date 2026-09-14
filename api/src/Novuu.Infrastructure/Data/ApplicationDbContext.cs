@@ -27,6 +27,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Lead> Leads => Set<Lead>();
     public DbSet<Cliente> Clientes => Set<Cliente>();
+    public DbSet<Favorito> Favoritos => Set<Favorito>();
+    public DbSet<HistoricoVisita> HistoricoVisitas => Set<HistoricoVisita>();
     public DbSet<Proposta> Propostas => Set<Proposta>();
     public DbSet<PropostaBalao> PropostasBaloes => Set<PropostaBalao>();
     public DbSet<PropostaVaga> PropostasVagas => Set<PropostaVaga>();

@@ -22,6 +22,8 @@ public interface IApplicationDbContext
     DbSet<User> Users { get; }
     DbSet<Lead> Leads { get; }
     DbSet<Cliente> Clientes { get; }
+    DbSet<Favorito> Favoritos { get; }
+    DbSet<HistoricoVisita> HistoricoVisitas { get; }
     DbSet<Proposta> Propostas { get; }
     DbSet<PropostaBalao> PropostasBaloes { get; }
     DbSet<PropostaVaga> PropostasVagas { get; }

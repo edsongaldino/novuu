@@ -964,6 +964,7 @@ public class EmpreendimentosController : ControllerBase
 
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
         var legacyUploadsPath = _configuration["UploadsPath"] ?? @"C:\laragon\www\lancamentos\public\uploads";
+        var cdnBaseUrl = _configuration["CdnBaseUrl"];
         string? resolvedLogoUrl = null;
 
         if (!string.IsNullOrWhiteSpace(logoUrl))
@@ -974,11 +975,18 @@ public class EmpreendimentosController : ControllerBase
             }
             else
             {
-                var cleanLogo = logoUrl.TrimStart('/', '\\').Replace('/', System.IO.Path.DirectorySeparatorChar);
-                var diskPath = System.IO.Path.Combine(@"C:\laragon\www\lancamentos\public", cleanLogo);
-                if (System.IO.File.Exists(diskPath))
+                var cleanLogo = logoUrl.TrimStart('/', '\\').Replace('\\', '/');
+                if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
                 {
-                    resolvedLogoUrl = $"{baseUrl}/{logoUrl.TrimStart('/')}";
+                    resolvedLogoUrl = $"{cdnBaseUrl.TrimEnd('/')}/{cleanLogo}";
+                }
+                else
+                {
+                    var diskPath = System.IO.Path.Combine(@"C:\laragon\www\lancamentos\public", cleanLogo.Replace('/', System.IO.Path.DirectorySeparatorChar));
+                    if (System.IO.File.Exists(diskPath))
+                    {
+                        resolvedLogoUrl = $"{baseUrl}/{logoUrl.TrimStart('/')}";
+                    }
                 }
             }
         }
@@ -1005,9 +1013,18 @@ public class EmpreendimentosController : ControllerBase
                         if (firstFile != null)
                         {
                             var fileName = System.IO.Path.GetFileName(firstFile);
-                            resolvedLogoUrl = string.IsNullOrEmpty(dir)
-                                ? $"{baseUrl}/uploads/construtora/{targetId}/{fileName}"
-                                : $"{baseUrl}/uploads/construtora/{targetId}/{dir}/{fileName}";
+                            if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
+                            {
+                                resolvedLogoUrl = string.IsNullOrEmpty(dir)
+                                    ? $"{cdnBaseUrl.TrimEnd('/')}/uploads/construtora/{targetId}/{fileName}"
+                                    : $"{cdnBaseUrl.TrimEnd('/')}/uploads/construtora/{targetId}/{dir}/{fileName}";
+                            }
+                            else
+                            {
+                                resolvedLogoUrl = string.IsNullOrEmpty(dir)
+                                    ? $"{baseUrl}/uploads/construtora/{targetId}/{fileName}"
+                                    : $"{baseUrl}/uploads/construtora/{targetId}/{dir}/{fileName}";
+                            }
                             break;
                         }
                     }

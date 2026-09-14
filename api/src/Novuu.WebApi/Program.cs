@@ -26,10 +26,31 @@ if (!string.IsNullOrWhiteSpace(spacesAccessKey) && !string.IsNullOrWhiteSpace(sp
     var s3Config = new Amazon.S3.AmazonS3Config
     {
         ServiceURL = "https://nyc3.digitaloceanspaces.com",
-        ForcePathStyle = false // For DO Spaces, path style should be false to use virtual host URLs
+        ForcePathStyle = false
     };
     builder.Services.AddSingleton<Amazon.S3.IAmazonS3>(new Amazon.S3.AmazonS3Client(spacesAccessKey, spacesSecretKey, s3Config));
 }
+
+// Add Authentication
+var jwtSecret = builder.Configuration["Jwt:Key"] ?? "chave-secreta-padrao-super-segura-123456";
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "Novuu",
+        ValidAudience = builder.Configuration["Jwt:Audience"] ?? "NovuuPortal",
+        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtSecret))
+    };
+});
 
 // Add CORS Policy to allow frontend applications to connect
 builder.Services.AddCors(options =>
@@ -76,10 +97,10 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference(); // Exposes Scalar API documentation at /scalar/v1
 }
 
-// HttpsRedirection removed because Traefik handles SSL and redirects.
-
 // Enable CORS and Routing for Controllers
 app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseExceptionHandler(errorApp =>
 {

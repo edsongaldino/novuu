@@ -214,15 +214,16 @@ public class EmpreendimentoService : IEmpreendimentoService
                 }
                 else
                 {
-                    var cleanLogo = cLogo.TrimStart('/', '\\').Replace('/', System.IO.Path.DirectorySeparatorChar);
+                    var cleanLogoUrl = cLogo.TrimStart('/', '\\').Replace('\\', '/');
                     
                     if (!string.IsNullOrWhiteSpace(cdnBaseUrl))
                     {
-                        item.ConstrutoraLogoUrl = $"{cdnBaseUrl.TrimEnd('/')}/{cleanLogo}";
+                        item.ConstrutoraLogoUrl = $"{cdnBaseUrl.TrimEnd('/')}/{cleanLogoUrl}";
                     }
                     else
                     {
-                        var diskPath = System.IO.Path.Combine(legacyUploadsPath, cleanLogo);
+                        var cleanLogoDisk = cLogo.TrimStart('/', '\\').Replace('/', System.IO.Path.DirectorySeparatorChar);
+                        var diskPath = System.IO.Path.Combine(legacyUploadsPath, cleanLogoDisk);
                         if (System.IO.File.Exists(diskPath))
                         {
                             item.ConstrutoraLogoUrl = $"/{cLogo.TrimStart('/')}";
